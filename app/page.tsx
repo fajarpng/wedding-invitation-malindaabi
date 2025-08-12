@@ -22,24 +22,24 @@ const mld = Monsieur_La_Doulaise({
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  // const audioRef = useRef<HTMLAudioElement>(null);
   const searh = useSearchParams();
   const guest = searh.get('to') || 'Tamu Undangan';
   const [opened, setOpened] = useState(false);
-  const [playing, setPlaying] = useState(true);
+  // const [playing, setPlaying] = useState(true);
 
   const openInvitation = () => {
     setOpened(true);
     videoRef.current?.play();
   };
 
-  const handlePlayPause = () => {
-    setPlaying(p => !p)
-    if (playing) {
-      audioRef.current?.pause();
-    } else
-    audioRef.current?.play();
-  }
+  // const handlePlayPause = () => {
+  //   setPlaying(p => !p)
+  //   if (playing) {
+  //     audioRef.current?.pause();
+  //   } else
+  //   audioRef.current?.play();
+  // }
 
   return (
     <div className="min-h-dvh text-white md:max-w-[500px] ">
