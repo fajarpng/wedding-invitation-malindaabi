@@ -1,11 +1,11 @@
 'use client'
 
-import { Cormorant_SC, Monsieur_La_Doulaise, PT_Serif } from "next/font/google";
-import { useSearchParams } from "next/navigation";
-import { Suspense, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import Countdown from "@/components/countdown";
+import Guest from "@/components/guest";
+import { AnimatePresence, motion } from "framer-motion";
+import { Cormorant_SC, Monsieur_La_Doulaise, PT_Serif } from "next/font/google";
+import Image from "next/image";
+import { Suspense, useRef, useState } from "react";
 
 const cormorant = Cormorant_SC({
   subsets: ["latin"],
@@ -21,15 +21,6 @@ const mld = Monsieur_La_Doulaise({
   subsets: ["latin"],
   weight: ["400"],
 });
-
-function Guest() {
-  const search = useSearchParams();
-  const guest = search.get('to') || 'Tamu Undangan';
-
-  return (
-    <div className={`${comicNeue.className} font-bold text-xl`}>{guest}</div>
-  )
-}
 
 const date = "2025-09-23T08:00:00+07:00"
 
