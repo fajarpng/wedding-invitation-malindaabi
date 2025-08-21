@@ -2,7 +2,7 @@
 
 import Countdown from "@/components/countdown";
 import Guest from "@/components/guest";
-import { CalendarPlusIcon, EnvelopeOpenIcon, MapPinIcon } from "@phosphor-icons/react";
+import { CalendarPlusIcon, EnvelopeOpenIcon, MapPinIcon, PaperPlaneRightIcon } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Cormorant_SC, Monsieur_La_Doulaise, PT_Serif, Tangerine } from "next/font/google";
 import Image from "next/image";
@@ -29,17 +29,26 @@ const mld = Monsieur_La_Doulaise({
   weight: ["400"],
 });
 
+type MessageType = {
+  _id: number
+  message: string
+  sender: string
+  presence: string
+}
+
 const date = "2025-09-23T08:00:00+07:00"
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   // const audioRef = useRef<HTMLAudioElement>(null);
   const [opened, setOpened] = useState(false);
+  const [message, setMessage] = useState<MessageType[]>([]);
   // const [playing, setPlaying] = useState(true);
 
   const openInvitation = () => {
     setOpened(true);
     videoRef.current?.play();
+    fetchMessage()
   };
 
   // const handlePlayPause = () => {
@@ -49,6 +58,16 @@ export default function Home() {
   //   } else
   //   audioRef.current?.play();
   // }
+
+  const fetchMessage = async () => {
+    try {
+      await fetch("/api")
+        .then((res) => res.json())
+        .then((data) => setMessage(data));
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className="min-h-dvh text-white md:max-w-[500px] ">
@@ -116,6 +135,15 @@ export default function Home() {
             <span className={`${prSerif.className}`}>
               23/09/25
             </span>
+          </div>
+        </section>
+
+        <section className="mt-30">
+          <div className={`${tangerine.className} text-center text-3xl mb-5`}>
+            Assalamualaikum Wr. Wb.
+          </div>
+          <div className={`${prSerif.className} text-center px-5`}>
+            Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta&apos;ala, Kami mengundang Bapak/Ibu/Saudara/i, untuk menghadiri Resepsi Pernikahan kami.
           </div>
         </section>
 
@@ -219,6 +247,44 @@ export default function Home() {
               </div>
 
             </div>
+          </div>
+        </section>
+
+        <section className={`${prSerif.className} min-h-dvh p-1 mt-10`}>
+          <div className='text-center relative'>
+            <div className="text-4xl">UCAPAN</div>
+            <div className="opacity-40 text-7xl mt-[-55px] mb-5">RSVP</div>
+            <div>Please, fill confirmation of attendance below.</div>
+          </div>
+          <div className="py-10 flex flex-col gap-3">
+            <input
+              className="border-1 backdrop-blur-xs py-2 px-4 outline-0 w-full placeholder:text-white"
+              placeholder="Name"
+            />
+            <textarea
+              className="border-1 backdrop-blur-xs py-2 px-4 outline-0 w-full placeholder:text-white"
+              placeholder="Your wish"
+              rows={4}
+            />
+            <input
+              className="border-1 backdrop-blur-xs py-2 px-4 outline-0 w-full placeholder:text-white"
+              placeholder="Confirm your presence"
+            />
+
+            <div className="border-1 mt-5 pt-1 pl-5 pr-5 pb-1 text-md self-center flex gap-2 items-center">
+              <PaperPlaneRightIcon color="white" size={20} /> Submit
+            </div>
+          </div>
+          
+          <div>
+            {message.map(v => (
+              <div key={v?._id} className="py-5 px-5 border-t-1 border-b-1">
+                <div className="font-bold">{v.sender}
+                  <span className=" ml-3 font-light">{v.presence}</span>
+                </div>
+                <div className="ml-5 mt-3">{v.message}</div>
+              </div>
+            ))}
           </div>
         </section>
 
