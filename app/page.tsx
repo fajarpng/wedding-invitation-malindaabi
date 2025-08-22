@@ -3,7 +3,7 @@
 import Countdown from "@/components/countdown";
 import Guest from "@/components/guest";
 import Rsvp from "@/components/rsvp";
-import { CalendarPlusIcon, CopyIcon, EnvelopeOpenIcon, GavelIcon, HandHeartIcon, InstagramLogoIcon, MapPinIcon, PauseCircleIcon, PlayCircleIcon } from "@phosphor-icons/react";
+import { CalendarPlusIcon, CopyIcon, EnvelopeOpenIcon, HandHeartIcon, InstagramLogoIcon, MapPinIcon, PauseCircleIcon, PlayCircleIcon } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Cormorant_SC, Monsieur_La_Doulaise, PT_Serif, Tangerine } from "next/font/google";
 import Image from "next/image";
