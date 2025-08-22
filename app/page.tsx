@@ -3,7 +3,7 @@
 import Countdown from "@/components/countdown";
 import Guest from "@/components/guest";
 import Rsvp from "@/components/rsvp";
-import { CalendarPlusIcon, EnvelopeOpenIcon, InstagramLogoIcon, MapPinIcon, PauseCircleIcon, PlayCircleIcon } from "@phosphor-icons/react";
+import { CalendarPlusIcon, CopyIcon, EnvelopeOpenIcon, GavelIcon, HandHeartIcon, InstagramLogoIcon, MapPinIcon, PauseCircleIcon, PlayCircleIcon } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Cormorant_SC, Monsieur_La_Doulaise, PT_Serif, Tangerine } from "next/font/google";
 import Image from "next/image";
@@ -115,7 +115,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mt-30">
+        <section className="mt-20">
           <div className={`${tangerine.className} text-center text-3xl mb-5`}>
             Assalamualaikum Wr. Wb.
           </div>
@@ -159,14 +159,14 @@ export default function Home() {
             />
             <div className="absolute mt-[-150px] ml-[30px]">
               <div className={`${cormorant.className} mb-2 font-bold text-2xl`}>Tri Fajar Pangestu</div>
-              <div className={`${prSerif.className} opacity-80 mb-2 text-sm`}>
+              <div className={`${prSerif.className} opacity-90 mb-2 text-sm`}>
                 Bapak Arif Anung R. & Ibu Siti Ngaisah<br/>
                 Surengede, Kertek, Kab. Wonosobo
               </div>
               <Link
                 href='https://www.instagram.com/fajar_png'
                 target="_blank"
-                className="text-sm cursor-pointer opacity-80 border w-fit px-2 text-md self-center shadow-sm shadow-[rgba(0,0,0,.5)] flex flex-non gap-2 items-center">
+                className="text-sm cursor-pointer opacity-90 border w-fit px-2 text-md self-center shadow-sm shadow-[rgba(0,0,0,.5)] flex flex-non gap-2 items-center">
                 <InstagramLogoIcon /> fajar_png
               </Link>
             </div>
@@ -276,12 +276,117 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <section className="mt-20">
+          <Image
+            src='/bg-2.jpg'
+            alt="prewed"
+            width={0}
+            height={0}
+            sizes="100vw"
+            className="w-full h-[300px] object-cover mb-10"
+          />
+          <div className={`${prSerif.className} text-center relative mb-5`}>
+            <div className="text-4xl">GALLERY</div>
+            <div className="opacity-40 text-7xl mt-[-55px] mb-5">OUR</div>
+            <div className="">ingka nanti kamu tolong bantu mikir yang ini ya</div>
+          </div>
+          <div className="grid grid-cols-3 gap-3 justify-center">
+            <Image
+              src='/bg-2.jpg'
+              alt="prewed"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-[120px] object-cover"
+            />
+            <Image
+              src='/bg-2.jpg'
+              alt="prewed"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-[120px] object-cover"
+            />
+            <Image
+              src='/bg-2.jpg'
+              alt="prewed"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-[120px] object-cover"
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-3 justify-center mt-8">
+            <Image
+              src='/bg-2.jpg'
+              alt="prewed"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-auto object-cover"
+            />
+            <Image
+              src='/bg-2.jpg'
+              alt="prewed"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-auto object-cover"
+            />
+            <Image
+              src='/bg-2.jpg'
+              alt="prewed"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-auto object-cover"
+            />
+            <Image
+              src='/bg-2.jpg'
+              alt="prewed"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        </section>
         
         <Suspense>
           <Rsvp />
         </Suspense>
 
-        <section className="min-h-dvh pt-50 pb-45 text-center flex flex-col justify-between">
+        <section className={`${prSerif.className} flex flex-col my-10 py-5 px-5 border-t border-b text-center `}>
+          <div className={`${prSerif.className} text-3xl my-2`}>
+            Wedding Gift
+          </div>
+          <div>Doa restu Anda adalah hadiah terindah. <br/>Jika berhalangan hadir, tanda kasih dapat dikirim melalui tombol di bawah</div>
+          <button
+            className="border backdrop-blur-xs rounded-2xl cursor-pointer my-5 pt-1 pl-5 pr-5 pb-1 text-md self-center flex gap-2 items-center shadow-sm shadow-[rgba(0,0,0,.5)] ">
+            <HandHeartIcon /> Kirim kado Pernikahan
+          </button>
+          <div className="border mt-3 backdrop-blur-xs text-left px-3 py-3">
+            <div>Tri Fajar Pangestu</div>
+            <div className="flex items-center gap-2 mt-3">
+              <CopyIcon /> 12312371238
+            </div>
+          </div>
+          <div className="border mt-3 backdrop-blur-xs text-left px-3 py-3">
+            Ingka Fahira BCA
+            <div className="flex items-center gap-2 mt-3">
+              <CopyIcon /> 12312371238
+            </div>
+          </div>
+          <div className="border mt-3 backdrop-blur-xs text-left px-3 py-3">
+            Tri Fajar Pangestu Dana
+            <div className="flex items-center gap-2 mt-3">
+              <CopyIcon /> 12312371238
+            </div>
+          </div>
+        </section>
+
+        <section className="min-h-dvh pt-55 pb-45 text-center flex flex-col justify-between">
           <div className={`${prSerif.className} text-md`}>
             See You On Our Special Day
           </div>
@@ -290,12 +395,15 @@ export default function Home() {
           </div>
           <div className={`${prSerif.className} text-md`}>
             Thankyou
+            <div className={`${tangerine.className} text-center text-3xl mt-2`}>
+              Wassalamualaikum Wr. Wb.
+            </div>
           </div>
         </section>
 
       </div>
 
-      <div className="fixed bottom-0 right-0 m-4 z-50 text-4xl" onClick={handlePlayPause}>
+      <div className="fixed bottom-0 right-0 m-4 z-50 text-4xl opacity-80" onClick={handlePlayPause}>
         {playing ? <PauseCircleIcon /> : <PlayCircleIcon />}
       </div>
     </div>

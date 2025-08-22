@@ -1,9 +1,13 @@
 'use client'
 
 import { CircleWavyCheckIcon, PaperPlaneRightIcon, SealQuestionIcon, XCircleIcon } from "@phosphor-icons/react";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { PT_Serif } from "next/font/google";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+
+dayjs.extend(relativeTime)
 
 const prSerif = PT_Serif({
   subsets: ["latin"],
@@ -15,6 +19,7 @@ type MessageType = {
   message: string
   sender: string
   presence: string
+  date?: Date
 }
 
 export default function Rsvp() {
@@ -22,8 +27,8 @@ export default function Rsvp() {
   const guest = search.get('to') || '';
     
   const [message, setMessage] = useState<MessageType[]>([]);
-  const [body, setBody] = useState<MessageType>({message: '', sender: guest, presence: ''});
-  
+  const [body, setBody] = useState<MessageType>({message: '', sender: guest, presence: 'ragu'});
+
   const fetchMessage = async () => {
     await fetch("/api")
       .then((res) => res.json())
@@ -39,16 +44,18 @@ export default function Rsvp() {
     e.preventDefault()
     if (!body.message) return
     const data = {...body}
-    if (!data.presence) data.presence = 'Masih Ragu'
+    if (!data.presence) data.presence = 'ragu'
     if (!data.sender) data.sender = 'Guest'
-    await fetch("/api", {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: "POST",
-      body: JSON.stringify(data)
-    })
+    
+    await fetch("/api",
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(data)
+      })
       .then(() => {
         fetchMessage()
         setBody({message: '', sender: '', presence: ''})
@@ -100,8 +107,8 @@ export default function Rsvp() {
         <div
           className="flex flex-col gap-2 max-h-100 overflow-scroll mt-4 mb-4"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
-          {message.map(v => (
-            <div key={v?._id} className="py-2 px-5 border backdrop-blur-xs rounded-xl">
+          {([...message].reverse()).map(v => (
+            <div key={v?._id} className="py-2 px-5 border backdrop-blur-xs rounded-xl flex-1">
               <div className="font-bold flex gap-3">
                 {v.sender}
                 {v.presence === 'hadir' && (
@@ -114,7 +121,18 @@ export default function Rsvp() {
                   <span className="font-light text-sm flex items-center gap-1"><SealQuestionIcon /> masih ragu</span>
                 )}
               </div>
-              <div className="ml-5 mt-1">{v.message}</div>
+              <div className="mt-1">{v.message}</div>
+              <div className="mt-1 text-xs">
+                {v.date
+                  ? dayjs().diff(v.date, "hour") < 1
+                    ? dayjs(v.date).fromNow() // less than 1 hour → relative
+                    : dayjs().diff(v.date, "day") < 1
+                    ? dayjs(v.date).format("HH:mm") // today
+                    : dayjs().diff(v.date, "day") === 1
+                    ? `Yesterday ${dayjs(v.date).format("HH:mm")}`
+                    : dayjs(v.date).format("dddd, DD MMMM HH:mm")
+                  : ""}
+              </div>
             </div>
           ))}
         </div>

@@ -7,6 +7,7 @@ export type ChatsType = {
     message: string
     sender: string
     presence: string
+    date: Date
 }
 
 const Schema = new mongoose.Schema<ChatsType>({
@@ -21,7 +22,11 @@ const Schema = new mongoose.Schema<ChatsType>({
   presence: {
     type: String,
     required: true,
-  }
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
 })
 
 const Chats = mongoose.models?.Chats || mongoose.model("Chats", Schema)
