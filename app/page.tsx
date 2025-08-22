@@ -2,7 +2,8 @@
 
 import Countdown from "@/components/countdown";
 import Guest from "@/components/guest";
-import { CalendarPlusIcon, EnvelopeOpenIcon, MapPinIcon, PaperPlaneRightIcon } from "@phosphor-icons/react";
+import Rsvp from "@/components/rsvp";
+import { CalendarPlusIcon, EnvelopeOpenIcon, MapPinIcon } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Cormorant_SC, Monsieur_La_Doulaise, PT_Serif, Tangerine } from "next/font/google";
 import Image from "next/image";
@@ -29,26 +30,17 @@ const mld = Monsieur_La_Doulaise({
   weight: ["400"],
 });
 
-type MessageType = {
-  _id: number
-  message: string
-  sender: string
-  presence: string
-}
-
 const date = "2025-09-23T08:00:00+07:00"
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   // const audioRef = useRef<HTMLAudioElement>(null);
   const [opened, setOpened] = useState(false);
-  const [message, setMessage] = useState<MessageType[]>([]);
   // const [playing, setPlaying] = useState(true);
 
   const openInvitation = () => {
     setOpened(true);
     videoRef.current?.play();
-    fetchMessage()
   };
 
   // const handlePlayPause = () => {
@@ -58,17 +50,6 @@ export default function Home() {
   //   } else
   //   audioRef.current?.play();
   // }
-
-  const fetchMessage = async () => {
-    try {
-      await fetch("/api")
-        .then((res) => res.json())
-        .then((data) => setMessage(data));
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   return (
     <div className="min-h-dvh text-white md:max-w-[500px] ">
       {/* Background video fixed */}
@@ -99,7 +80,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ y: "-100%" }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
+            transition={{ duration: 2, ease: "easeInOut" }}
             className="fixed inset-0 bg-black flex flex-col justify-center items-center gap-2 z-10 h-dvh"
             style={{ backgroundImage: "url('/bg-2.jpg')", backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }}
           >
@@ -114,7 +95,7 @@ export default function Home() {
             </Suspense>
             <button
               onClick={openInvitation}
-              className="bg-transparent border-1 backdrop-blur-xs border-white px-7 py-2.5 rounded-xs mt-10"
+              className="bg-transparent shadow-sm shadow-[rgba(0,0,0,.5)] border backdrop-blur-xs border-white px-7 py-2.5 rounded-xs mt-10 cursor-pointer"
             >
               <div className={`${prSerif.className} font-bold text-md flex items-center gap-3`}>
                 <EnvelopeOpenIcon color="white" size={25} /> Buka undangan
@@ -148,7 +129,7 @@ export default function Home() {
         </section>
 
         <section className="h-dvh flex flex-col justify-center items-center">
-          <div className="w-[300px] h-[350px] shadow-xl text-center p-5 border-2 backdrop-blur-xs border-white flex flex-col gap-8 justify-center items-center">
+          <div className="w-[300px] h-[350px] shadow-md shadow-[rgba(0,0,0,.5)] text-center p-5 border-2 backdrop-blur-xs border-white flex flex-col gap-8 justify-center items-center">
             <div className="relative">
               <div className={`${tangerine.className} text-6xl`}>
                 Countdown
@@ -164,7 +145,7 @@ export default function Home() {
             </Suspense>
 
 
-            <div className={`${prSerif.className} border-1 pt-1 pl-5 pr-5 pb-1 text-md`}>
+            <button className={`${prSerif.className} cursor-pointer  border pt-1 pl-5 pr-5 pb-1 text-md shadow-sm shadow-[rgba(0,0,0,.5)] `}>
               <Link
                 href='https://calendar.google.com/calendar/u/0/r/eventedit?text=
                   &text=The+Wedding+of+Fajar+%26+Ingka
@@ -175,12 +156,12 @@ export default function Home() {
                 className="flex gap-2 items-center">
                 <CalendarPlusIcon color="white" size={20} /> Save the date
               </Link>
-            </div>
+            </button>
           </div>
         </section>
 
         <section className="min-h-dvh p-1 text-center">
-          <div className="backdrop-blur-xs border-2 shadow-xl border-white rounded-t-full rounded-b-full p-2 pb-30 min-h-dvh overflow-hidden">
+          <div className="backdrop-blur-xs border-2 shadow-md shadow-[rgba(0,0,0,.5)] border-white rounded-t-full rounded-b-full p-2 pb-30 min-h-dvh overflow-hidden">
             <Image
               src='/bg-2.jpg'
               alt="prewed"
@@ -236,57 +217,21 @@ export default function Home() {
               <div className={`${prSerif.className} mt-10 flex flex-col gap-5`}>
                 <div>Lokasi</div>
                 <div>Dsn Pukiran, Ngalian, Wadaslintang, Wonosoobo</div>
-                <div className="border-1 pt-1 pl-5 pr-5 pb-1 text-md self-center">
-                  <Link
-                    href='https://maps.app.goo.gl/h7X1Ukbkh9WZyvJ68'
-                    target="_blank"
-                    className="flex gap-2 items-center">
-                    <MapPinIcon color="white" size={20} /> Google Maps
-                  </Link>
-                </div>
+                <Link
+                  href='https://maps.app.goo.gl/h7X1Ukbkh9WZyvJ68'
+                  target="_blank"
+                  className="cursor-pointer border pt-1 pl-5 pr-5 pb-1 text-md self-center shadow-sm shadow-[rgba(0,0,0,.5)] flex gap-2 items-center">
+                  <MapPinIcon color="white" size={20} /> Google Maps
+                </Link>
               </div>
 
             </div>
           </div>
         </section>
-
-        <section className={`${prSerif.className} min-h-dvh p-1 mt-10`}>
-          <div className='text-center relative'>
-            <div className="text-4xl">UCAPAN</div>
-            <div className="opacity-40 text-7xl mt-[-55px] mb-5">RSVP</div>
-            <div>Please, fill confirmation of attendance below.</div>
-          </div>
-          <div className="py-10 flex flex-col gap-3">
-            <input
-              className="border-1 backdrop-blur-xs py-2 px-4 outline-0 w-full placeholder:text-white"
-              placeholder="Name"
-            />
-            <textarea
-              className="border-1 backdrop-blur-xs py-2 px-4 outline-0 w-full placeholder:text-white"
-              placeholder="Your wish"
-              rows={4}
-            />
-            <input
-              className="border-1 backdrop-blur-xs py-2 px-4 outline-0 w-full placeholder:text-white"
-              placeholder="Confirm your presence"
-            />
-
-            <div className="border-1 mt-5 pt-1 pl-5 pr-5 pb-1 text-md self-center flex gap-2 items-center">
-              <PaperPlaneRightIcon color="white" size={20} /> Submit
-            </div>
-          </div>
-          
-          <div>
-            {message.map(v => (
-              <div key={v?._id} className="py-5 px-5 border-t-1 border-b-1">
-                <div className="font-bold">{v.sender}
-                  <span className=" ml-3 font-light">{v.presence}</span>
-                </div>
-                <div className="ml-5 mt-3">{v.message}</div>
-              </div>
-            ))}
-          </div>
-        </section>
+        
+        <Suspense>
+          <Rsvp />
+        </Suspense>
 
         <section className="min-h-dvh pt-50 pb-45 text-center flex flex-col justify-between">
           <div className={`${prSerif.className} text-md`}>

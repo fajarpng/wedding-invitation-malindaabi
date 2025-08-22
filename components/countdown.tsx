@@ -27,16 +27,26 @@ function calculateTimeLeft(target: number): TimeLeft {
 
 const Countdown: React.FC<CountdownProps> = ({ date }) => {
   const target = new Date(date).getTime();
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(() =>
-    calculateTimeLeft(target)
-  );
+  const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
 
   useEffect(() => {
+    setTimeLeft(calculateTimeLeft(target)); // ✅ calculate only after mount
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft(target));
     }, 1000);
     return () => clearInterval(timer);
   }, [target]);
+
+  if (!timeLeft) {
+    return (
+      <div className="flex gap-5 justify-center">
+        <Box value={0} label="Days" />
+        <Box value={0} label="Hours" />
+        <Box value={0} label="Minutes" />
+        <Box value={0} label="Seconds" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex gap-5 justify-center">
