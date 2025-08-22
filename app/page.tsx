@@ -3,7 +3,7 @@
 import Countdown from "@/components/countdown";
 import Guest from "@/components/guest";
 import Rsvp from "@/components/rsvp";
-import { CalendarPlusIcon, EnvelopeOpenIcon, MapPinIcon } from "@phosphor-icons/react";
+import { CalendarPlusIcon, EnvelopeOpenIcon, InstagramLogoIcon, MapPinIcon, PauseCircleIcon, PlayCircleIcon } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Cormorant_SC, Monsieur_La_Doulaise, PT_Serif, Tangerine } from "next/font/google";
 import Image from "next/image";
@@ -34,22 +34,22 @@ const date = "2025-09-23T08:00:00+07:00"
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  // const audioRef = useRef<HTMLAudioElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [opened, setOpened] = useState(false);
-  // const [playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState(false);
 
   const openInvitation = () => {
     setOpened(true);
+    handlePlayPause()
     videoRef.current?.play();
   };
 
-  // const handlePlayPause = () => {
-  //   setPlaying(p => !p)
-  //   if (playing) {
-  //     audioRef.current?.pause();
-  //   } else
-  //   audioRef.current?.play();
-  // }
+  const handlePlayPause = () => {
+    setPlaying(p => !p)
+    if (playing) {
+      audioRef.current?.pause();
+    } else audioRef.current?.play();
+  }
   return (
     <div className="min-h-dvh text-white md:max-w-[500px] ">
       {/* Background video fixed */}
@@ -63,16 +63,12 @@ export default function Home() {
         >
           <source src="/video.mp4" type="video/mp4" />
         </video>
-        {/* <audio
+        <audio
           ref={audioRef}
           src='https://ulemanti.id/wp-content/uploads/2025/03/Billie-Eilish-Birds-of-a-Feather-Acoustic-Cover-by-Conner-Moye.mp3'
           loop
-        /> */}
+        />
       </div>
-
-      {/* <div className="absolute bottom-0 right-0" onClick={handlePlayPause}>
-        {playing ? 'pause' : 'play'}
-      </div> */}
 
       {/* Overlay open screen */}
       <AnimatePresence>
@@ -80,8 +76,8 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ y: "-100%" }}
-            transition={{ duration: 2, ease: "easeInOut" }}
-            className="fixed inset-0 bg-black flex flex-col justify-center items-center gap-2 z-10 h-dvh"
+            transition={{ duration: 2.5, ease: "easeInOut" }}
+            className="fixed inset-0 bg-black flex flex-col justify-center items-center gap-2 z-100 h-dvh"
             style={{ backgroundImage: "url('/bg-2.jpg')", backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }}
           >
             <div className={`${prSerif.className} mb-2`}>The Wedding of</div>
@@ -123,8 +119,60 @@ export default function Home() {
           <div className={`${tangerine.className} text-center text-3xl mb-5`}>
             Assalamualaikum Wr. Wb.
           </div>
-          <div className={`${prSerif.className} text-center px-5`}>
+          <div className={`${prSerif.className} text-center px-5 mb-10`}>
             Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta&apos;ala, Kami mengundang Bapak/Ibu/Saudara/i, untuk menghadiri Resepsi Pernikahan kami.
+          </div>
+          <div className="mb-5">
+            <div className={`${cormorant.className} tracking-tighter font-bold uppercase text-6xl opacity-70 flex items-start mb-[-28px] gap-2`}>
+              <span className="text-2xl tracking-normal mt-1">The</span> bride
+            </div>
+            <Image
+              src='/bg-2.jpg'
+              alt="prewed"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-auto"
+            />
+            <div className="absolute mt-[-150px] ml-[30px]">
+              <div className={`${cormorant.className} mb-2 font-bold text-2xl`}>Ingka Fahira</div>
+              <div className={`${prSerif.className} opacity-80 mb-2 text-sm`}>
+                Bapak Mustofa & Ibu Basimah<br/>
+                Ngalian, Wadaslintang, Kab. Wonosobo
+              </div>
+              <Link
+                href='https://www.instagram.com/inkaaple_'
+                target="_blank"
+                className="text-sm cursor-pointer opacity-80 border w-fit px-2 text-md self-center shadow-sm shadow-[rgba(0,0,0,.5)] flex flex-non gap-2 items-center">
+                <InstagramLogoIcon /> inkaaple_
+              </Link>
+            </div>
+          </div>
+          <div>
+            <Image
+              src='/bg-2.jpg'
+              alt="prewed"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-auto"
+            />
+            <div className="absolute mt-[-150px] ml-[30px]">
+              <div className={`${cormorant.className} mb-2 font-bold text-2xl`}>Tri Fajar Pangestu</div>
+              <div className={`${prSerif.className} opacity-80 mb-2 text-sm`}>
+                Bapak Arif Anung R. & Ibu Siti Ngaisah<br/>
+                Surengede, Kertek, Kab. Wonosobo
+              </div>
+              <Link
+                href='https://www.instagram.com/fajar_png'
+                target="_blank"
+                className="text-sm cursor-pointer opacity-80 border w-fit px-2 text-md self-center shadow-sm shadow-[rgba(0,0,0,.5)] flex flex-non gap-2 items-center">
+                <InstagramLogoIcon /> fajar_png
+              </Link>
+            </div>
+            <div className={`${cormorant.className} tracking-tighter font-bold uppercase text-6xl opacity-70 flex items-end justify-end mt-[-28px] gap-2`}>
+              <span className="text-2xl tracking-normal mb-1">The</span> groom
+            </div>
           </div>
         </section>
 
@@ -185,7 +233,7 @@ export default function Home() {
                 <div className="flex-1">
                   <div className="flex-1 h-[1px] bg-amber-50" />
                     <div className="text-md uppercase text-right mt-1 mb-1">
-                      Tuesday
+                      Selasa
                     </div>
                   <div className="flex-1 h-[1px] bg-amber-50" />
                 </div>
@@ -210,7 +258,7 @@ export default function Home() {
                 <div className="w-[1.5px] h-20 bg-amber-50" />
                 <div>
                   <div className="text-2xl mb-5">RESEPSI</div>
-                  <div className="text-sm">11.00 - Selesai</div>
+                  <div className="text-sm">12.00 - Selesai</div>
                 </div>
               </div>
 
@@ -245,6 +293,10 @@ export default function Home() {
           </div>
         </section>
 
+      </div>
+
+      <div className="fixed bottom-0 right-0 m-4 z-50 text-4xl" onClick={handlePlayPause}>
+        {playing ? <PauseCircleIcon /> : <PlayCircleIcon />}
       </div>
     </div>
   );

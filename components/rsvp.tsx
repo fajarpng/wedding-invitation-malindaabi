@@ -61,7 +61,7 @@ export default function Rsvp() {
       <div className='text-center relative'>
         <div className="text-4xl">UCAPAN</div>
         <div className="opacity-40 text-7xl mt-[-55px] mb-5">RSVP</div>
-        <div>Please, fill confirmation of attendance below.</div>
+        <div>kehadiran anda menyempurnakan <br/>kebahagaiaan kami</div>
       </div>
       <form onSubmit={handleSend} className="py-10 flex flex-col gap-3">
         <input
@@ -92,31 +92,33 @@ export default function Rsvp() {
         <button
           type="submit"
           className="border cursor-pointer mt-5 pt-1 pl-5 pr-5 pb-1 text-md self-center flex gap-2 items-center shadow-sm shadow-[rgba(0,0,0,.5)] ">
-          <PaperPlaneRightIcon color="white" size={20} /> Submit
+          <PaperPlaneRightIcon color="white" size={20} /> Kirim
         </button>
       </form>
       
-      <div className="flex flex-col gap-2">
-        <div className="border-t-1"/>
-        {message.map(v => (
-          <div key={v?._id} className="py-2 px-5 border backdrop-blur-xs rounded-xl">
-            <div className="font-bold flex gap-3">
-              {v.sender}
-              {v.presence === 'hadir' && (
-                <span className="font-light text-sm flex items-center gap-1"><CircleWavyCheckIcon /> hadir</span>
-              )}
-              {v.presence === 'tidak' && (
-                <span className="font-light text-sm flex items-center gap-1"><XCircleIcon /> tidak hadir</span>
-              )}
-              {v.presence === 'ragu' && (
-                <span className="font-light text-sm flex items-center gap-1"><SealQuestionIcon /> masih ragu</span>
-              )}
+      <div className="border-t-1"/>
+        <div
+          className="flex flex-col gap-2 max-h-100 overflow-scroll mt-4 mb-4"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+          {message.map(v => (
+            <div key={v?._id} className="py-2 px-5 border backdrop-blur-xs rounded-xl">
+              <div className="font-bold flex gap-3">
+                {v.sender}
+                {v.presence === 'hadir' && (
+                  <span className="font-light text-sm flex items-center gap-1"><CircleWavyCheckIcon /> hadir</span>
+                )}
+                {v.presence === 'tidak' && (
+                  <span className="font-light text-sm flex items-center gap-1"><XCircleIcon /> tidak hadir</span>
+                )}
+                {v.presence === 'ragu' && (
+                  <span className="font-light text-sm flex items-center gap-1"><SealQuestionIcon /> masih ragu</span>
+                )}
+              </div>
+              <div className="ml-5 mt-1">{v.message}</div>
             </div>
-            <div className="ml-5 mt-1">{v.message}</div>
-          </div>
-        ))}
-        <div className="border-t-1"/>
-      </div>
+          ))}
+        </div>
+      <div className="border-t-1"/>
     </section>
   );
 }
