@@ -2,6 +2,7 @@
 
 import Countdown from "@/components/countdown";
 import Guest from "@/components/guest";
+import LoadingOverlay from "@/components/loadingOverlay";
 import Rsvp from "@/components/rsvp";
 import { CalendarPlusIcon, CopyIcon, EnvelopeOpenIcon, HandHeartIcon, InstagramLogoIcon, MapPinIcon, PauseCircleIcon, PlayCircleIcon } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -57,22 +58,23 @@ export default function Home() {
   }
   return (
     <div className="min-h-dvh text-white md:max-w-[500px]">
+      <LoadingOverlay />
       {/* Background video fixed */}
       <div className="fixed top-0 left-0 w-full h-dvh -z-10">
         <video
           ref={videoRef}
           loop
-          muted
+          muted={! playing}
           playsInline
           className="w-full h-dvh object-cover brightness-75"
         >
           <source src="/video.mp4" type="video/mp4" />
         </video>
-        <audio
+        {/* <audio
           ref={audioRef}
           src='https://ulemanti.id/wp-content/uploads/2025/03/Billie-Eilish-Birds-of-a-Feather-Acoustic-Cover-by-Conner-Moye.mp3'
           loop
-        />
+        /> */}
       </div>
 
       {/* Overlay open screen */}
@@ -82,26 +84,28 @@ export default function Home() {
             initial={{ opacity: 1 }}
             exit={{ y: "-100%" }}
             transition={{ duration: 2.5, ease: "easeInOut" }}
-            className="fixed inset-0 bg-black flex flex-col justify-center items-center gap-2 z-100 h-dvh"
-            style={{ backgroundImage: "url('/bg-2.jpg')", backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }}
+            className="fixed inset-0 bg-black z-100 h-dvh"
+            style={{ backgroundImage: "url('/photo-7.jpeg')", backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }}
           >
-            <div className={`${prSerif.className} mb-2`}>The Wedding of</div>
-            <div className={`${cormorant.className} mb-2 text-4xl`}>
-              Fajar <span className={`${mld.className} text-6xl`}>&</span> Ingka
-            </div>
-            <div className={`${prSerif.className} mb-8`}>23 September 2025</div>
-            <div className={`${prSerif.className}`}>Dear ,</div>
-            <Suspense>
-              <Guest />
-            </Suspense>
-            <button
-              onClick={openInvitation}
-              className="bg-transparent shadow-sm shadow-[rgba(0,0,0,.5)] border backdrop-blur-xs border-white px-7 py-2.5 rounded-xs mt-10 cursor-pointer"
-            >
-              <div className={`${prSerif.className} font-bold text-md flex items-center gap-3`}>
-                <EnvelopeOpenIcon color="white" size={25} /> Buka undangan
+            <div className="flex flex-col justify-center items-center gap-2 h-full bg-black/30 ">
+              <div className={`${prSerif.className} mb-2`}>The Wedding of</div>
+              <div className={`${cormorant.className} mb-2 text-4xl`}>
+                Fajar <span className={`${mld.className} text-6xl`}>&</span> Ingka
               </div>
-            </button>
+              <div className={`${prSerif.className} mb-8`}>23 September 2025</div>
+              <div className={`${prSerif.className}`}>Dear ,</div>
+              <Suspense>
+                <Guest />
+              </Suspense>
+              <button
+                onClick={openInvitation}
+                className="bg-transparent shadow-sm shadow-[rgba(0,0,0,.5)] border backdrop-blur-xs border-white px-7 py-2.5 rounded-xs mt-10 cursor-pointer"
+              >
+                <div className={`${prSerif.className} font-bold text-md flex items-center gap-3`}>
+                  <EnvelopeOpenIcon color="white" size={25} /> Buka undangan
+                </div>
+              </button>
+            </div>
           </motion.div>
         }
       </AnimatePresence>
@@ -132,12 +136,12 @@ export default function Home() {
               <span className="text-2xl tracking-normal mt-1">The</span> bride
             </div>
             <Image
-              src='/bg-2.jpg'
-              alt="prewed"
+              src='/bride.jpeg'
+              alt="bride"
               width={0}
               height={0}
               sizes="100vw"
-              className="w-full h-auto"
+              className="w-full h-[600px] object-cover"
             />
             <div className="absolute mt-[-150px] ml-[30px]">
               <div className={`${cormorant.className} mb-2 font-bold text-2xl`}>Ingka Fahira</div>
@@ -155,12 +159,12 @@ export default function Home() {
           </div>
           <div>
             <Image
-              src='/bg-2.jpg'
-              alt="prewed"
+              src='/groom.jpeg'
+              alt="groom"
               width={0}
               height={0}
               sizes="100vw"
-              className="w-full h-auto"
+              className="w-full h-[600px] object-cover"
             />
             <div className="absolute mt-[-150px] ml-[30px]">
               <div className={`${cormorant.className} mb-2 font-bold text-2xl`}>Tri Fajar Pangestu</div>
@@ -191,12 +195,12 @@ export default function Home() {
                 Timer
               </div>
             </div>
+
             <Suspense>
               <div className={`${prSerif.className}`}>
                 <Countdown date={date} />
               </div>
             </Suspense>
-
 
             <button className={`${prSerif.className} cursor-pointer  border pt-1 pl-5 pr-5 pb-1 text-md shadow-sm shadow-[rgba(0,0,0,.5)] `}>
               <Link
@@ -216,12 +220,12 @@ export default function Home() {
         <section className="min-h-dvh p-1 text-center">
           <div className="backdrop-blur-xs border-2 shadow-md shadow-[rgba(0,0,0,.5)] border-white rounded-t-full rounded-b-full p-2 pb-30 min-h-dvh overflow-hidden">
             <Image
-              src='/bg-2.jpg'
-              alt="prewed"
+              src='/photo-2.jpeg'
+              alt="event"
               width={0}
               height={0}
               sizes="100vw"
-              className="rounded-t-full w-full h-auto mb-10"
+              className="rounded-t-full w-full h-auto mb-10 contrast-110"
             />
 
             <div className='relative mb-2 mt-0'>
@@ -282,9 +286,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mt-20">
+        <section className="mt-10">
           <Image
-            src='/bg-2.jpg'
+            src='/photo-6.jpeg'
             alt="prewed"
             width={0}
             height={0}
@@ -294,11 +298,11 @@ export default function Home() {
           <div className={`${prSerif.className} text-center relative mb-5`}>
             <div className="text-4xl">GALLERY</div>
             <div className="opacity-40 text-7xl mt-[-55px] mb-5">OUR</div>
-            <div className="">ingka nanti kamu tolong bantu mikir yang ini ya</div>
+            <div className="">&quot;Pernikahan yang sukses adalah jatuh cinta sering kali dan selalu terhadap orang yang sama.&quot;</div>
           </div>
-          <div className="grid grid-cols-3 gap-3 justify-center">
+          <div className="grid grid-cols-3 gap-1 justify-center">
             <Image
-              src='/bg-2.jpg'
+              src='/photo-1.jpeg'
               alt="prewed"
               width={0}
               height={0}
@@ -306,7 +310,7 @@ export default function Home() {
               className="w-full h-[120px] object-cover"
             />
             <Image
-              src='/bg-2.jpg'
+              src='/17.jpeg'
               alt="prewed"
               width={0}
               height={0}
@@ -314,7 +318,7 @@ export default function Home() {
               className="w-full h-[120px] object-cover"
             />
             <Image
-              src='/bg-2.jpg'
+              src='/photo-4.jpeg'
               alt="prewed"
               width={0}
               height={0}
@@ -322,38 +326,88 @@ export default function Home() {
               className="w-full h-[120px] object-cover"
             />
           </div>
-          <div className="grid grid-cols-2 gap-3 justify-center mt-8">
+          <div className="grid grid-cols-4 gap-1 justify-center mt-8">
             <Image
-              src='/bg-2.jpg'
+              src='/15.jpeg'
               alt="prewed"
               width={0}
               height={0}
               sizes="100vw"
-              className="w-full h-auto object-cover"
+              className="w-full h-auto object-cover col-span-2 contrast-130 brightness-80"
             />
             <Image
-              src='/bg-2.jpg'
+              src='/photo-13.jpeg'
               alt="prewed"
               width={0}
               height={0}
               sizes="100vw"
-              className="w-full h-auto object-cover"
+              className="w-full h-auto object-cover col-span-2"
             />
             <Image
-              src='/bg-2.jpg'
+              src='/photo-14.jpeg'
               alt="prewed"
               width={0}
               height={0}
               sizes="100vw"
-              className="w-full h-auto object-cover"
+              className="w-full h-auto object-cover col-span-2"
             />
             <Image
-              src='/bg-2.jpg'
+              src='/photo-3.jpeg'
               alt="prewed"
               width={0}
               height={0}
               sizes="100vw"
-              className="w-full h-auto object-cover"
+              className="w-full h-auto object-cover col-span-2"
+            />
+            <Image
+              src='/18.jpeg'
+              alt="prewed"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-[200px] col-span-1 object-cover"
+            />
+            <div className="w-full h-[200px] overflow-hidden col-span-3">
+              <Image
+                src='/16.jpeg'
+                alt="prewed"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-[200px] object-cover contrast-130 scale-120 rotate-[-1.7deg]"
+              />
+            </div>
+            <Image
+              src='/photo-10.jpeg'
+              alt="prewed"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-[405px] object-cover row-span-2 col-span-2"
+            />
+            <Image
+              src='/photo-8.jpeg'
+              alt="prewed"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-[200px] object-cover col-span-2 grayscale-100"
+            />
+            <Image
+              src='/photo-9.jpeg'
+              alt="prewed"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-[200px] object-cover col-span-2"
+            />
+            <Image
+              src='/photo-12.jpeg'
+              alt="prewed"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-[300px] object-cover [object-position:center_50%] col-span-4"
             />
           </div>
         </section>
