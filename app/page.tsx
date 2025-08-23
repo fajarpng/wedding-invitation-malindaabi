@@ -3,7 +3,7 @@
 import Countdown from "@/components/countdown";
 import Guest from "@/components/guest";
 import Rsvp from "@/components/rsvp";
-import { CalendarPlusIcon, CopyIcon, EnvelopeOpenIcon, GavelIcon, HandHeartIcon, InstagramLogoIcon, MapPinIcon, PauseCircleIcon, PlayCircleIcon } from "@phosphor-icons/react";
+import { CalendarPlusIcon, CopyIcon, EnvelopeOpenIcon, HandHeartIcon, InstagramLogoIcon, MapPinIcon, PauseCircleIcon, PlayCircleIcon } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Cormorant_SC, Monsieur_La_Doulaise, PT_Serif, Tangerine } from "next/font/google";
 import Image from "next/image";
@@ -37,6 +37,7 @@ export default function Home() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [opened, setOpened] = useState(false);
   const [playing, setPlaying] = useState(false);
+  const [giftOpen, setGiftOpen] = useState(false);
 
   const openInvitation = () => {
     setOpened(true);
@@ -50,8 +51,12 @@ export default function Home() {
       audioRef.current?.pause();
     } else audioRef.current?.play();
   }
+
+  const handleCopy = async (text: string) => {
+    await navigator.clipboard.writeText(text);
+  }
   return (
-    <div className="min-h-dvh text-white md:max-w-[500px] ">
+    <div className="min-h-dvh text-white md:max-w-[500px]">
       {/* Background video fixed */}
       <div className="fixed top-0 left-0 w-full h-dvh -z-10">
         <video
@@ -361,27 +366,69 @@ export default function Home() {
           <div className={`${prSerif.className} text-3xl my-2`}>
             Wedding Gift
           </div>
-          <div>Doa restu Anda adalah hadiah terindah. <br/>Jika berhalangan hadir, tanda kasih dapat dikirim melalui tombol di bawah</div>
+          <div>Doa restu Anda adalah hadiah terindah. <br/>Jika berhalangan hadir, dan ingin memberikan tanda kasih dapat dikirim melalui tombol di bawah</div>
           <button
+            onClick={() => setGiftOpen(p => !p)}
             className="border backdrop-blur-xs rounded-2xl cursor-pointer my-5 pt-1 pl-5 pr-5 pb-1 text-md self-center flex gap-2 items-center shadow-sm shadow-[rgba(0,0,0,.5)] ">
             <HandHeartIcon /> Kirim kado Pernikahan
           </button>
-          <div className="border mt-3 backdrop-blur-xs text-left px-3 py-3">
-            <div>Tri Fajar Pangestu</div>
-            <div className="flex items-center gap-2 mt-3">
-              <CopyIcon /> 12312371238
+          <div
+            className={`transition-all duration-500 ease-in-out overflow-hidden ${
+              giftOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+            }`}
+          >
+            <div className="flex border backdrop-blur-xs mt-3 rounded overflow-hidden">
+              <div>
+                <Image
+                  src='/bca.png'
+                  alt="bca"
+                  width={80}
+                  height={80}
+                />
+              </div>
+              <div className="text-left px-3 py-3">
+                <div>Ingka Fahira</div>
+                <button
+                  onClick={() => handleCopy('8545722492')}
+                  className="cursor-pointer flex items-center gap-2 mt-2">
+                  <CopyIcon /> 8545722492
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="border mt-3 backdrop-blur-xs text-left px-3 py-3">
-            Ingka Fahira BCA
-            <div className="flex items-center gap-2 mt-3">
-              <CopyIcon /> 12312371238
+            <div className="flex border backdrop-blur-xs mt-3 rounded overflow-hidden">
+              <Image
+                src='/seabank.png'
+                alt="seabank"
+                width={80}
+                height={80}
+                className="bg-white"
+              />
+              <div className="backdrop-blur-xs text-left px-3 py-3">
+                <div>Tri Fajar Pangestu</div>
+                <button
+                  onClick={() => handleCopy('901909801341')}
+                  className="cursor-pointer flex items-center gap-2 mt-2">
+                  <CopyIcon /> 901909801341
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="border mt-3 backdrop-blur-xs text-left px-3 py-3">
-            Tri Fajar Pangestu Dana
-            <div className="flex items-center gap-2 mt-3">
-              <CopyIcon /> 12312371238
+            <div className="flex border backdrop-blur-xs mt-3 rounded overflow-hidden">
+              <div>
+                <Image
+                  src='/dana.png'
+                  alt="dana"
+                  width={80}
+                  height={80}
+                />
+              </div>
+              <div className="backdrop-blur-xs text-left px-3 py-3">
+                <div>Tri Fajar Pangestu</div>
+                <button
+                  onClick={() => handleCopy('089526651616')}
+                  className="cursor-pointer flex items-center gap-2 mt-2">
+                  <CopyIcon /> 089526651616
+                </button>
+              </div>
             </div>
           </div>
         </section>
