@@ -1,6 +1,7 @@
 'use client'
 
 import Countdown from "@/components/countdown";
+import FadeAnimation from "@/components/fadeAnimation";
 import Guest from "@/components/guest";
 import LoadingOverlay from "@/components/loadingOverlay";
 import Rsvp from "@/components/rsvp";
@@ -64,17 +65,17 @@ export default function Home() {
         <video
           ref={videoRef}
           loop
-          muted={! playing}
+          muted
           playsInline
           className="w-full h-dvh object-cover brightness-75"
         >
           <source src="/video.mp4" type="video/mp4" />
         </video>
-        {/* <audio
+        <audio
           ref={audioRef}
-          src='https://ulemanti.id/wp-content/uploads/2025/03/Billie-Eilish-Birds-of-a-Feather-Acoustic-Cover-by-Conner-Moye.mp3'
+          src='/musik.mp3'
           loop
-        /> */}
+        />
       </div>
 
       {/* Overlay open screen */}
@@ -113,8 +114,10 @@ export default function Home() {
       {/* Scrollable content */}
       <div className="z-0 p-4">
         <section className="h-dvh flex flex-col justify-end pb-30">
-          <div className={`${cormorant.className} text-4xl mb-2 text-right mr-7`}>
-            Fajar <span className={`${mld.className} text-6xl`}>&</span> Ingka
+          <div className={`${cormorant.className} text-6xl mb-2 text-right mr-7`}>
+            <FadeAnimation type="left" className="mr-15">Ingka</FadeAnimation>
+            <span className={`${mld.className} text-8xl opacity-50 absolute right-25 mt-[-40px]`}>&</span>
+            <FadeAnimation type="right">Fajar</FadeAnimation>
           </div>
           <div className="flex items-center gap-10 mr-10">
             <div className="flex-1 h-[1px] bg-amber-50" />
@@ -125,16 +128,20 @@ export default function Home() {
         </section>
 
         <section className="mt-20">
-          <div className={`${tangerine.className} text-center text-3xl mb-5`}>
-            Assalamualaikum Wr. Wb.
-          </div>
-          <div className={`${prSerif.className} text-center px-5 mb-10`}>
-            Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta&apos;ala, Kami mengundang Bapak/Ibu/Saudara/i, untuk menghadiri Resepsi Pernikahan kami.
-          </div>
+          <FadeAnimation type="up">
+            <div className={`${tangerine.className} text-center text-3xl mb-5`}>
+              Assalamualaikum Wr. Wb.
+            </div>
+            <div className={`${prSerif.className} text-center px-5 mb-10`}>
+              Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta&apos;ala, Kami mengundang Bapak/Ibu/Saudara/i, untuk menghadiri Resepsi Pernikahan kami.
+            </div>
+          </FadeAnimation>
           <div className="mb-5">
-            <div className={`${cormorant.className} tracking-tighter font-bold uppercase text-6xl opacity-70 flex items-start mb-[-28px] gap-2`}>
+            <FadeAnimation type="left">
+            <div className={`${cormorant.className} tracking-tighter font-bold uppercase text-6xl opacity-70 z-10 flex items-start mb-[-28px] gap-2`}>
               <span className="text-2xl tracking-normal mt-1">The</span> bride
             </div>
+            </FadeAnimation>
             <Image
               src='/bride.jpeg'
               alt="bride"
@@ -144,17 +151,19 @@ export default function Home() {
               className="w-full h-[600px] object-cover"
             />
             <div className="absolute mt-[-150px] ml-[30px]">
-              <div className={`${cormorant.className} mb-2 font-bold text-2xl`}>Ingka Fahira</div>
-              <div className={`${prSerif.className} opacity-80 mb-2 text-sm`}>
-                Bapak Mustofa & Ibu Basimah<br/>
-                Ngalian, Wadaslintang, Kab. Wonosobo
-              </div>
-              <Link
-                href='https://www.instagram.com/inkaaple_'
-                target="_blank"
-                className="text-sm cursor-pointer opacity-80 border w-fit px-2 text-md self-center shadow-sm shadow-[rgba(0,0,0,.5)] flex flex-non gap-2 items-center">
-                <InstagramLogoIcon /> inkaaple_
-              </Link>
+              <FadeAnimation type="right" className={`${cormorant.className} mb-2 font-bold text-2xl`}>Ingka Fahira</FadeAnimation>
+              <FadeAnimation type="up">
+                <div className={`${prSerif.className} opacity-80 mb-2 text-sm`}>
+                  Bapak Mustofa & Ibu Basimah<br/>
+                  Ngalian, Wadaslintang, Kab. Wonosobo
+                </div>
+                <Link
+                  href='https://www.instagram.com/inkaaple_'
+                  target="_blank"
+                  className="text-sm cursor-pointer opacity-80 border w-fit px-2 text-md self-center shadow-sm shadow-[rgba(0,0,0,.5)] flex flex-non gap-2 items-center">
+                  <InstagramLogoIcon /> inkaaple_
+                </Link>
+              </FadeAnimation>
             </div>
           </div>
           <div>
@@ -167,53 +176,63 @@ export default function Home() {
               className="w-full h-[600px] object-cover"
             />
             <div className="absolute mt-[-150px] ml-[30px]">
-              <div className={`${cormorant.className} mb-2 font-bold text-2xl`}>Tri Fajar Pangestu</div>
-              <div className={`${prSerif.className} opacity-90 mb-2 text-sm`}>
-                Bapak Arif Anung R. & Ibu Siti Ngaisah<br/>
-                Surengede, Kertek, Kab. Wonosobo
+              <FadeAnimation type="right" className={`${cormorant.className} mb-2 font-bold text-2xl`}>Tri Fajar Pangestu</FadeAnimation>
+              <FadeAnimation type="up">
+                <div className={`${prSerif.className} opacity-90 mb-2 text-sm`}>
+                  Bapak Arif Anung R. & Ibu Siti Ngaisah<br/>
+                  Surengede, Kertek, Kab. Wonosobo
+                </div>
+                <Link
+                  href='https://www.instagram.com/fajar_png'
+                  target="_blank"
+                  className="text-sm cursor-pointer opacity-90 border w-fit px-2 text-md self-center shadow-sm shadow-[rgba(0,0,0,.5)] flex flex-non gap-2 items-center">
+                  <InstagramLogoIcon /> fajar_png
+                </Link>
+              </FadeAnimation>
+            </div>
+            <FadeAnimation type="right">
+              <div className={`${cormorant.className} tracking-tighter font-bold uppercase text-6xl opacity-70 flex items-end justify-end mt-[-28px] gap-2`}>
+                <span className="text-2xl tracking-normal mb-1">The</span> groom
               </div>
-              <Link
-                href='https://www.instagram.com/fajar_png'
-                target="_blank"
-                className="text-sm cursor-pointer opacity-90 border w-fit px-2 text-md self-center shadow-sm shadow-[rgba(0,0,0,.5)] flex flex-non gap-2 items-center">
-                <InstagramLogoIcon /> fajar_png
-              </Link>
-            </div>
-            <div className={`${cormorant.className} tracking-tighter font-bold uppercase text-6xl opacity-70 flex items-end justify-end mt-[-28px] gap-2`}>
-              <span className="text-2xl tracking-normal mb-1">The</span> groom
-            </div>
+            </FadeAnimation>
           </div>
         </section>
 
         <section className="h-dvh flex flex-col justify-center items-center">
           <div className="w-[300px] h-[350px] shadow-md shadow-[rgba(0,0,0,.5)] text-center p-5 border-2 backdrop-blur-xs border-white flex flex-col gap-8 justify-center items-center">
             <div className="relative">
-              <div className={`${tangerine.className} text-6xl`}>
-                Countdown
-              </div>
-              <div className={`${tangerine.className} text-5xl opacity-40 text-right mt-[-25px]`}>
-                Timer
-              </div>
+              <FadeAnimation type="up">
+                <div className={`${tangerine.className} text-6xl`}>
+                  Countdown
+                </div>
+                <div className={`${tangerine.className} text-5xl opacity-40 text-right mt-[-25px]`}>
+                  Timer
+                </div>
+              </FadeAnimation>
             </div>
 
             <Suspense>
-              <div className={`${prSerif.className}`}>
-                <Countdown date={date} />
-              </div>
+              <FadeAnimation type="up" delay={.3}>
+                <div className={`${prSerif.className}`}>
+                  <Countdown date={date} />
+                </div>
+              </FadeAnimation>
             </Suspense>
 
-            <button className={`${prSerif.className} cursor-pointer  border pt-1 pl-5 pr-5 pb-1 text-md shadow-sm shadow-[rgba(0,0,0,.5)] `}>
-              <Link
-                href='https://calendar.google.com/calendar/u/0/r/eventedit?text=
-                  &text=The+Wedding+of+Fajar+%26+Ingka
-                  &details=Join+us+for+our+special+day!
-                  &dates=20250923T090000Z/20250923T140000Z
-                  &location=Pukiran,+Ngalian,+Kec.+Wadaslintang,+Kabupaten+Wonosobo,+Jawa+Tengah,+Indonesia'
-                target="_blank"
-                className="flex gap-2 items-center">
-                <CalendarPlusIcon color="white" size={20} /> Save the date
-              </Link>
-            </button>
+            <FadeAnimation type="up" delay={.4}>
+              <button className={`${prSerif.className} cursor-pointer  border pt-1 pl-5 pr-5 pb-1 text-md shadow-sm shadow-[rgba(0,0,0,.5)] `}>
+                <Link
+                  href='https://calendar.google.com/calendar/u/0/r/eventedit?text=
+                    &text=The+Wedding+of+Fajar+%26+Ingka
+                    &details=Join+us+for+our+special+day!
+                    &dates=20250923T090000Z/20250923T140000Z
+                    &location=Pukiran,+Ngalian,+Kec.+Wadaslintang,+Kabupaten+Wonosobo,+Jawa+Tengah,+Indonesia'
+                  target="_blank"
+                  className="flex gap-2 items-center">
+                  <CalendarPlusIcon color="white" size={20} /> Save the date
+                </Link>
+              </button>
+            </FadeAnimation>
           </div>
         </section>
 
@@ -229,49 +248,53 @@ export default function Home() {
             />
 
             <div className='relative mb-2 mt-0'>
-              <div className={`${tangerine.className} text-6xl`}>
+              <FadeAnimation type="left" className={`${tangerine.className} text-6xl`}>
                 Wedding
-              </div>
-              <div className={`${tangerine.className} text-5xl opacity-40 ml-20 mt-[-20px]`}>
-                Event
-              </div>
+              </FadeAnimation>
+              <FadeAnimation type="right">
+                <div className={`${tangerine.className} text-5xl opacity-40 ml-20 mt-[-20px]`}>
+                  Event
+                </div>
+              </FadeAnimation>
             </div>
 
             <div>
               <div className={`flex ${prSerif.className} mt-10 items-center gap-3`}>
-                <div className="flex-1">
+                <FadeAnimation type="left" className="flex-1" delay={.5}>
                   <div className="flex-1 h-[1px] bg-amber-50" />
                     <div className="text-md uppercase text-right mt-1 mb-1">
                       Selasa
                     </div>
                   <div className="flex-1 h-[1px] bg-amber-50" />
-                </div>
-                <div>
+                </FadeAnimation>
+                <FadeAnimation>
                   <div className="font-bold text-2xl leading-5">23</div>
                   <div className="text-sm font-bold">2025</div>
-                </div>
-                <div className="flex-1">
+                </FadeAnimation>
+                <FadeAnimation type="right" className="flex-1" delay={.5}>
                   <div className="flex-1 h-[1px] bg-amber-50" />
                     <div className="text-md uppercase text-left mt-1 mb-1">
                       September
                     </div>
                   <div className="flex-1 h-[1px] bg-amber-50" />
-                </div>
+                </FadeAnimation>
               </div>
 
               <div className={`flex ${prSerif.className} mt-10 items-center justify-evenly gap-3`}>
-                <div>
+                <FadeAnimation type="left" delay={.5} className="flex-1">
                   <div className="text-2xl mb-5">AKAD</div>
                   <div className="text-sm">08.00 - 10.00</div>
-                </div>
-                <div className="w-[1.5px] h-20 bg-amber-50" />
-                <div>
+                </FadeAnimation>
+                <FadeAnimation type="up" className="w-[1.5px] h-20 bg-amber-50" >
+                  <div/>
+                </FadeAnimation>
+                <FadeAnimation type="right" delay={.5} className="flex-1">
                   <div className="text-2xl mb-5">RESEPSI</div>
                   <div className="text-sm">12.00 - Selesai</div>
-                </div>
+                </FadeAnimation>
               </div>
 
-              <div className={`${prSerif.className} mt-10 flex flex-col gap-5`}>
+              <FadeAnimation type="up" className={`${prSerif.className} mt-10 flex flex-col gap-5`}>
                 <div>Lokasi</div>
                 <div>Dsn Pukiran, Ngalian, Wadaslintang, Wonosoobo</div>
                 <Link
@@ -280,94 +303,112 @@ export default function Home() {
                   className="cursor-pointer border pt-1 pl-5 pr-5 pb-1 text-md self-center shadow-sm shadow-[rgba(0,0,0,.5)] flex gap-2 items-center">
                   <MapPinIcon color="white" size={20} /> Google Maps
                 </Link>
-              </div>
+              </FadeAnimation>
 
             </div>
           </div>
         </section>
 
         <section className="mt-10">
-          <Image
-            src='/photo-6.jpeg'
-            alt="prewed"
-            width={0}
-            height={0}
-            sizes="100vw"
-            className="w-full h-[300px] object-cover mb-10"
-          />
+          <FadeAnimation type="up">
+            <Image
+              src='/photo-6.jpeg'
+              alt="prewed"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-full h-[300px] object-cover mb-10"
+            />
+          </FadeAnimation>
           <div className={`${prSerif.className} text-center relative mb-5`}>
             <div className="text-4xl">GALLERY</div>
             <div className="opacity-40 text-7xl mt-[-55px] mb-5">OUR</div>
             <div className="">&quot;Pernikahan yang sukses adalah jatuh cinta sering kali dan selalu terhadap orang yang sama.&quot;</div>
           </div>
           <div className="grid grid-cols-3 gap-1 justify-center">
-            <Image
-              src='/photo-1.jpeg'
-              alt="prewed"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="w-full h-[120px] object-cover"
-            />
-            <Image
-              src='/17.jpeg'
-              alt="prewed"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="w-full h-[120px] object-cover"
-            />
-            <Image
-              src='/photo-4.jpeg'
-              alt="prewed"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="w-full h-[120px] object-cover"
-            />
+            <FadeAnimation type="up">
+              <Image
+                src='/photo-1.jpeg'
+                alt="prewed"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-[120px] object-cover"
+              />
+            </FadeAnimation>
+            <FadeAnimation type="up">
+              <Image
+                src='/17.jpeg'
+                alt="prewed"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-[120px] object-cover"
+              />
+            </FadeAnimation>
+            <FadeAnimation type="up">
+              <Image
+                src='/photo-4.jpeg'
+                alt="prewed"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-[120px] object-cover"
+              />
+            </FadeAnimation>
           </div>
           <div className="grid grid-cols-4 gap-1 justify-center mt-8">
-            <Image
-              src='/15.jpeg'
-              alt="prewed"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="w-full h-auto object-cover col-span-2 contrast-130 brightness-80"
-            />
-            <Image
-              src='/photo-13.jpeg'
-              alt="prewed"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="w-full h-auto object-cover col-span-2"
-            />
-            <Image
-              src='/photo-14.jpeg'
-              alt="prewed"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="w-full h-auto object-cover col-span-2"
-            />
-            <Image
-              src='/photo-3.jpeg'
-              alt="prewed"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="w-full h-auto object-cover col-span-2"
-            />
-            <Image
-              src='/18.jpeg'
-              alt="prewed"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="w-full h-[200px] col-span-1 object-cover"
-            />
-            <div className="w-full h-[200px] overflow-hidden col-span-3">
+            <FadeAnimation type="up" className="col-span-2">
+              <Image
+                src='/15.jpeg'
+                alt="prewed"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-auto object-cover contrast-130 brightness-80"
+              />
+            </FadeAnimation>
+            <FadeAnimation type="up" className="col-span-2">
+              <Image
+                src='/photo-13.jpeg'
+                alt="prewed"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-auto object-cover"
+              />
+            </FadeAnimation>
+            <FadeAnimation type="up" className="col-span-2">
+              <Image
+                src='/photo-14.jpeg'
+                alt="prewed"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-auto object-cover"
+              />
+            </FadeAnimation>
+            <FadeAnimation type="up" className="col-span-2">
+              <Image
+                src='/photo-3.jpeg'
+                alt="prewed"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-auto object-cover"
+              />
+            </FadeAnimation>
+            <FadeAnimation type="up" className="col-span-1">
+              <Image
+                src='/18.jpeg'
+                alt="prewed"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-[200px] object-cover"
+              />
+              </FadeAnimation>
+            <FadeAnimation type="up" className="w-full h-[200px] overflow-hidden col-span-3">
               <Image
                 src='/16.jpeg'
                 alt="prewed"
@@ -376,39 +417,47 @@ export default function Home() {
                 sizes="100vw"
                 className="w-full h-[200px] object-cover contrast-130 scale-120 rotate-[-1.7deg]"
               />
-            </div>
-            <Image
-              src='/photo-10.jpeg'
-              alt="prewed"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="w-full h-[405px] object-cover row-span-2 col-span-2"
-            />
-            <Image
-              src='/photo-8.jpeg'
-              alt="prewed"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="w-full h-[200px] object-cover col-span-2 grayscale-100"
-            />
-            <Image
-              src='/photo-9.jpeg'
-              alt="prewed"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="w-full h-[200px] object-cover col-span-2"
-            />
-            <Image
-              src='/photo-12.jpeg'
-              alt="prewed"
-              width={0}
-              height={0}
-              sizes="100vw"
-              className="w-full h-[300px] object-cover [object-position:center_50%] col-span-4"
-            />
+            </FadeAnimation>
+            <FadeAnimation type="up" className="row-span-2 col-span-2">
+              <Image
+                src='/photo-10.jpeg'
+                alt="prewed"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-[405px] object-cover"
+              />
+            </FadeAnimation>
+            <FadeAnimation type="up" className="col-span-2">
+              <Image
+                src='/photo-8.jpeg'
+                alt="prewed"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-[200px] object-cover grayscale-100"
+              />
+            </FadeAnimation>
+            <FadeAnimation type="up" className="col-span-2">
+              <Image
+                src='/photo-9.jpeg'
+                alt="prewed"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-[200px] object-cover"
+              />
+            </FadeAnimation>
+            <FadeAnimation type="up" className="col-span-4">
+              <Image
+                src='/photo-12.jpeg'
+                alt="prewed"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-[300px] object-cover [object-position:center_50%]"
+              />
+            </FadeAnimation>
           </div>
         </section>
         
