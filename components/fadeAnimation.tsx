@@ -27,16 +27,18 @@ const FadeSlide: React.FC<FadeSlideProps> = ({
   className,
 }) => {
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: false, amount: 0.2 }}
-      variants={variants[type]}
-      transition={{ duration, delay, ease: "easeOut" }}
-      className={className}
-    >
-      {children}
-    </motion.div>
+    <div className={className+ " overflow-hidden "}>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
+        variants={variants[type]}
+        transition={{ duration, delay, ease: "easeOut" }}
+        
+      >
+        {children}
+      </motion.div>
+    </div>
   );
 };
 

@@ -114,9 +114,9 @@ export default function Home() {
       {/* Scrollable content */}
       <div className="z-0 p-4">
         <section className="h-dvh flex flex-col justify-end pb-30">
-          <div className={`${cormorant.className} text-6xl mb-2 text-right mr-7`}>
+          <div className={`${cormorant.className} text-6xl mb-2 text-right mr-7 relative`}>
             <FadeAnimation type="left" className="mr-15">Ingka</FadeAnimation>
-            <span className={`${mld.className} text-8xl opacity-50 absolute right-25 mt-[-40px]`}>&</span>
+            <span className={`${mld.className} text-8xl opacity-50 absolute right-15 bottom-0`}>&</span>
             <FadeAnimation type="right">Fajar</FadeAnimation>
           </div>
           <div className="flex items-center gap-10 mr-10">
@@ -137,8 +137,8 @@ export default function Home() {
             </div>
           </FadeAnimation>
           <div className="mb-5">
-            <FadeAnimation type="left">
-            <div className={`${cormorant.className} tracking-tighter font-bold uppercase text-6xl opacity-70 z-10 flex items-start mb-[-28px] gap-2`}>
+            <FadeAnimation type="left" className=" mb-[-28px]">
+            <div className={`${cormorant.className} tracking-tighter font-bold uppercase text-6xl opacity-70 z-10 flex items-start gap-2`}>
               <span className="text-2xl tracking-normal mt-1">The</span> bride
             </div>
             </FadeAnimation>
@@ -190,8 +190,8 @@ export default function Home() {
                 </Link>
               </FadeAnimation>
             </div>
-            <FadeAnimation type="right">
-              <div className={`${cormorant.className} tracking-tighter font-bold uppercase text-6xl opacity-70 flex items-end justify-end mt-[-28px] gap-2`}>
+            <FadeAnimation type="right" className="mt-[-28px]">
+              <div className={`${cormorant.className} tracking-tighter font-bold uppercase text-6xl opacity-70 flex items-end justify-end gap-2`}>
                 <span className="text-2xl tracking-normal mb-1">The</span> groom
               </div>
             </FadeAnimation>
@@ -219,19 +219,17 @@ export default function Home() {
               </FadeAnimation>
             </Suspense>
 
-            <FadeAnimation type="up" delay={.4}>
-              <button className={`${prSerif.className} cursor-pointer  border pt-1 pl-5 pr-5 pb-1 text-md shadow-sm shadow-[rgba(0,0,0,.5)] `}>
-                <Link
-                  href='https://calendar.google.com/calendar/u/0/r/eventedit?text=
-                    &text=The+Wedding+of+Fajar+%26+Ingka
-                    &details=Join+us+for+our+special+day!
-                    &dates=20250923T090000Z/20250923T140000Z
-                    &location=Pukiran,+Ngalian,+Kec.+Wadaslintang,+Kabupaten+Wonosobo,+Jawa+Tengah,+Indonesia'
-                  target="_blank"
-                  className="flex gap-2 items-center">
-                  <CalendarPlusIcon color="white" size={20} /> Save the date
-                </Link>
-              </button>
+            <FadeAnimation type="up" delay={.5} className="overflow-visible">
+              <Link
+                href='https://calendar.google.com/calendar/u/0/r/eventedit?text=
+                  &text=The+Wedding+of+Fajar+%26+Ingka
+                  &details=Join+us+for+our+special+day!
+                  &dates=20250923T090000Z/20250923T140000Z
+                  &location=Pukiran,+Ngalian,+Kec.+Wadaslintang,+Kabupaten+Wonosobo,+Jawa+Tengah,+Indonesia'
+                target="_blank"
+                className={`${prSerif.className} cursor-pointer border pt-1 pl-5 pr-5 pb-1 text-md shadow-sm shadow-[rgba(0,0,0,.5)] flex gap-2 items-center`}>
+                <CalendarPlusIcon color="white" size={20} /> Save the date
+              </Link>
             </FadeAnimation>
           </div>
         </section>
@@ -251,8 +249,8 @@ export default function Home() {
               <FadeAnimation type="left" className={`${tangerine.className} text-6xl`}>
                 Wedding
               </FadeAnimation>
-              <FadeAnimation type="right">
-                <div className={`${tangerine.className} text-5xl opacity-40 ml-20 mt-[-20px]`}>
+              <FadeAnimation type="right" className="mt-[-20px]">
+                <div className={`${tangerine.className} text-5xl opacity-40 ml-20`}>
                   Event
                 </div>
               </FadeAnimation>
@@ -294,15 +292,17 @@ export default function Home() {
                 </FadeAnimation>
               </div>
 
-              <FadeAnimation type="up" className={`${prSerif.className} mt-10 flex flex-col gap-5`}>
-                <div>Lokasi</div>
-                <div>Dsn Pukiran, Ngalian, Wadaslintang, Wonosoobo</div>
-                <Link
-                  href='https://maps.app.goo.gl/h7X1Ukbkh9WZyvJ68'
-                  target="_blank"
-                  className="cursor-pointer border pt-1 pl-5 pr-5 pb-1 text-md self-center shadow-sm shadow-[rgba(0,0,0,.5)] flex gap-2 items-center">
-                  <MapPinIcon color="white" size={20} /> Google Maps
-                </Link>
+              <FadeAnimation type="up">
+                <div className={`${prSerif.className} mt-10 flex flex-col gap-5`}>
+                  <div>Lokasi</div>
+                  <div>Dsn Pukiran, Ngalian, Wadaslintang, Wonosoobo</div>
+                  <Link
+                    href='https://maps.app.goo.gl/h7X1Ukbkh9WZyvJ68'
+                    target="_blank"
+                    className="cursor-pointer border pt-1 pl-5 pr-5 pb-1 text-md self-center shadow-sm shadow-[rgba(0,0,0,.5)] flex gap-2 items-center">
+                    <MapPinIcon color="white" size={20} /> Google Maps
+                  </Link>
+                </div>
               </FadeAnimation>
 
             </div>
@@ -462,7 +462,9 @@ export default function Home() {
         </section>
         
         <Suspense>
-          <Rsvp />
+          <FadeAnimation type="up">
+            <Rsvp />
+          </FadeAnimation>
         </Suspense>
 
         <section className={`${prSerif.className} flex flex-col my-10 py-5 px-5 border-t border-b text-center `}>
