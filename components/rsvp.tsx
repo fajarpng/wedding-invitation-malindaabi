@@ -27,7 +27,8 @@ export default function Rsvp() {
   const guest = search.get('to') || '';
     
   const [message, setMessage] = useState<MessageType[]>([]);
-  const [body, setBody] = useState<MessageType>({message: '', sender: guest, presence: 'ragu'});
+  const [body, setBody] = useState<MessageType>({message: '', sender: guest, presence: ''});
+  const [loading, setLoading] = useState(false);
 
   const fetchMessage = async () => {
     await fetch("/api")
@@ -42,7 +43,8 @@ export default function Rsvp() {
   
   const handleSend = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!body.message) return
+    if (!body.message || loading) return
+    setLoading(true)
     const data = {...body}
     if (!data.presence) data.presence = 'ragu'
     if (!data.sender) data.sender = 'Guest'
@@ -61,6 +63,7 @@ export default function Rsvp() {
         setBody({message: '', sender: '', presence: ''})
       })
       .catch(error => console.log(error))
+    setLoading(false)
   }
 
   return (
@@ -89,7 +92,7 @@ export default function Rsvp() {
           value={body.presence}
           onChange={e => setBody(p => ({...p, presence: e.target.value }))}
         >
-          <option value="" disabled hidden>
+          <option value="" disabled>
             konfirmasi kehadiran
           </option>
           <option value="hadir" className="text-black">Hadir</option>
