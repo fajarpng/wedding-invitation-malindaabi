@@ -13,8 +13,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The wedding of Fajar & Ingka",
-  description: "Wedding invitation from fajar and ingka, wish all the best",
+  title: "The wedding of Ingka & Fajar",
+  description: "To our friends and family: We're so excited to celebrate our wedding with you. Find all the details you need to know about our big day here.",
+  authors: [{ name: "Ingka & Fajar" }],
+  creator: "Ingka & Fajar",
+  publisher: "Ingka & Fajar",
+  openGraph: {
+    images: {
+      url: "https://wedding-invitation-fajarandingka.vercel.app/photo-2.jpeg", // replace with your wedding banner/cover image
+      width: 1200,
+      height: 630,
+      alt: "The Wedding of Ingka & Fajar",
+    },
+}
 };
 
 export default function RootLayout({
