@@ -33,7 +33,7 @@ export default function Rsvp() {
   const fetchMessage = async () => {
     await fetch("/api")
       .then((res) => res.json())
-      .then((data) => {setMessage(data)})
+      .then((data) => {if (data) setMessage(data.reverse())})
       .catch(error => console.log(error))
   }
 
@@ -110,7 +110,7 @@ export default function Rsvp() {
         <div
           className="flex flex-col gap-2 max-h-100 overflow-scroll mt-4 mb-4"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
-          {([...message].reverse()).map(v => (
+          {message.map(v => (
             <div key={v?._id} className="py-2 px-5 border backdrop-blur-xs rounded-xl flex-1">
               <div className="font-bold flex gap-3">
                 {v.sender}
