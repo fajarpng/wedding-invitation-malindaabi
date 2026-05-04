@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import Countdown from "@/components/countdown";
@@ -32,7 +33,7 @@ const mld = Monsieur_La_Doulaise({
   weight: ["400"],
 });
 
-const date = "2025-09-23T08:00:00+07:00"
+const date = "2026-06-01T09:00:00+07:00"
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -41,11 +42,21 @@ export default function Home() {
   const [playing, setPlaying] = useState(false);
   const [giftOpen, setGiftOpen] = useState(false);
 
-  const openInvitation = () => {
+  const openInvitation = async () => {
     setOpened(true);
     handlePlayPause()
     videoRef.current?.play();
-  };
+
+    const el = document.documentElement;
+
+    if (el.requestFullscreen) {
+      await el.requestFullscreen();
+    } else if ((el as any).webkitRequestFullscreen) {
+      (el as any).webkitRequestFullscreen();
+    } else if ((el as any).msRequestFullscreen) {
+      (el as any).msRequestFullscreen();
+    }
+  }
 
   const handlePlayPause = () => {
     setPlaying(p => !p)
@@ -69,11 +80,12 @@ export default function Home() {
           playsInline
           className="w-full h-dvh object-cover brightness-75"
         >
-          <source src="/video.mp4" type="video/mp4" />
+          <source src="/malinda/video.mp4" type="video/mp4" />
         </video>
+
         <audio
           ref={audioRef}
-          src='/musik.mp3'
+          src='/musik2.mp3'
           loop
         />
       </div>
@@ -86,14 +98,14 @@ export default function Home() {
             exit={{ y: "-100%" }}
             transition={{ duration: 2.5, ease: "easeInOut" }}
             className="fixed inset-0 bg-black z-100 h-dvh"
-            style={{ backgroundImage: "url('/photo-7.jpeg')", backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }}
+            style={{ backgroundImage: "url('/malinda/opening.jpeg')", backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }}
           >
-            <div className="flex flex-col justify-center items-center gap-2 h-full bg-black/30 ">
+            <div className="flex flex-col justify-center items-center gap-2 h-full bg-black/30">
               <div className={`${prSerif.className} mb-2`}>The Wedding of</div>
               <div className={`${cormorant.className} mb-2 text-4xl`}>
-                Fajar <span className={`${mld.className} text-6xl`}>&</span> Ingka
+                Abi <span className={`${mld.className} text-6xl`}>&</span> Malinda
               </div>
-              <div className={`${prSerif.className} mb-8`}>23 September 2025</div>
+              <div className={`${prSerif.className} mb-100`}>23 September 2025</div>
               <div className={`${prSerif.className}`}>Dear ,</div>
               <Suspense>
                 <Guest />
@@ -115,14 +127,14 @@ export default function Home() {
       <div className="z-0 p-4">
         <section className="h-dvh flex flex-col justify-end pb-30">
           <div className={`${cormorant.className} text-6xl mb-2 text-right mr-7 relative`}>
-            <FadeAnimation type="left" className="mr-15">Ingka</FadeAnimation>
+            <FadeAnimation type="left" className="mr-15">Malinda</FadeAnimation>
             <span className={`${mld.className} text-8xl opacity-50 absolute right-15 bottom-0`}>&</span>
-            <FadeAnimation type="right">Fajar</FadeAnimation>
+            <FadeAnimation type="right">Abi</FadeAnimation>
           </div>
           <div className="flex items-center gap-10 mr-10">
             <div className="flex-1 h-[1px] bg-amber-50" />
             <span className={`${prSerif.className}`}>
-              23/09/25
+              01/06/26
             </span>
           </div>
         </section>
@@ -143,50 +155,50 @@ export default function Home() {
             </div>
             </FadeAnimation>
             <Image
-              src='/bride.jpeg'
+              src='/malinda/bride.jpeg'
               alt="bride"
               width={0}
               height={0}
               sizes="100vw"
               className="w-full h-[600px] object-cover"
             />
-            <div className="absolute mt-[-150px] ml-[30px]">
-              <FadeAnimation type="right" className={`${cormorant.className} mb-2 font-bold text-2xl`}>Ingka Fahira</FadeAnimation>
+            <div className="absolute mt-[-150px] ml-[20px] p-3 bg-black/30">
+              <FadeAnimation type="right" className={`${cormorant.className} mb-2 font-bold text-2xl`}>Malinda Ni&apos;matun Abaddiyah</FadeAnimation>
               <FadeAnimation type="up">
                 <div className={`${prSerif.className} opacity-80 mb-2 text-sm`}>
-                  Bapak Mustofa & Ibu Basimah<br/>
-                  Ngalian, Wadaslintang, Kab. Wonosobo
+                  Bapak Narto & Ibu Siti Nur Asiyah<br/>
+                  Ds.Sumberagung Kec.Rejotangan Kab.Tulungagung
                 </div>
                 <Link
-                  href='https://www.instagram.com/inkaaple_'
+                  href='https://www.instagram.com/malindanik'
                   target="_blank"
                   className="text-sm cursor-pointer opacity-80 border w-fit px-2 text-md self-center shadow-sm shadow-[rgba(0,0,0,.5)] flex flex-non gap-2 items-center">
-                  <InstagramLogoIcon /> inkaaple_
+                  <InstagramLogoIcon /> malindanik
                 </Link>
               </FadeAnimation>
             </div>
           </div>
           <div>
             <Image
-              src='/groom.jpeg'
+              src='/malinda/groom.jpeg'
               alt="groom"
               width={0}
               height={0}
               sizes="100vw"
               className="w-full h-[600px] object-cover"
             />
-            <div className="absolute mt-[-150px] ml-[30px]">
-              <FadeAnimation type="right" className={`${cormorant.className} mb-2 font-bold text-2xl`}>Tri Fajar Pangestu</FadeAnimation>
+            <div className="absolute mt-[-150px] ml-[20px] p-3 bg-black/30 ">
+              <FadeAnimation type="right" className={`${cormorant.className} mb-2 font-bold text-2xl`}>Abi Nur Rahmat</FadeAnimation>
               <FadeAnimation type="up">
                 <div className={`${prSerif.className} opacity-90 mb-2 text-sm`}>
-                  Bapak Arif Anung R. & Ibu Siti Ngaisah<br/>
-                  Surengede, Kertek, Kab. Wonosobo
+                  Bapak Suyono Anung R. & Ibu Sriatun<br/>
+                  Ds.Sumberagung Kec.Rejotangan Kab.Tulungagung
                 </div>
                 <Link
-                  href='https://www.instagram.com/fajar_png'
+                  href='https://www.instagram.com/mas.abi_cekut'
                   target="_blank"
                   className="text-sm cursor-pointer opacity-90 border w-fit px-2 text-md self-center shadow-sm shadow-[rgba(0,0,0,.5)] flex flex-non gap-2 items-center">
-                  <InstagramLogoIcon /> fajar_png
+                  <InstagramLogoIcon /> mas.abi_cekut
                 </Link>
               </FadeAnimation>
             </div>
@@ -221,13 +233,10 @@ export default function Home() {
 
             <FadeAnimation type="up" delay={.5} className="overflow-visible">
               <Link
-                href='https://calendar.google.com/calendar/u/0/r/eventedit?text=
-                  &text=The+Wedding+of+Fajar+%26+Ingka
-                  &details=Join+us+for+our+special+day!
-                  &dates=20250923T090000Z/20250923T140000Z
-                  &location=Pukiran,+Ngalian,+Kec.+Wadaslintang,+Kabupaten+Wonosobo,+Jawa+Tengah,+Indonesia'
+                href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The+Wedding+of+Abi+%26+Malinda&details=Akad:+01+Juni+2026+09:00+WIB%0AResepsi:+01+Juni+2026+13:00+WIB%0ALokasi:+Dsn.Sumberagung+RT+002/RW+011+Ds.Sumberagung+Kec.Rejotangan+Kab.Tulungagung%0AMaps:+https://maps.app.goo.gl/uEUaCh4k24PNweSw6&dates=20260601T020000Z/20260601T080000Z&location=Dsn.Sumberagung+RT+002/RW+011+Ds.Sumberagung+Kec.Rejotangan+Kab.Tulungagung"
                 target="_blank"
-                className={`${prSerif.className} cursor-pointer border pt-1 pl-5 pr-5 pb-1 text-md shadow-sm shadow-[rgba(0,0,0,.5)] flex gap-2 items-center`}>
+                className={`${prSerif.className} cursor-pointer border pt-1 pl-5 pr-5 pb-1 text-md shadow-sm shadow-[rgba(0,0,0,.5)] flex gap-2 items-center`}
+              >
                 <CalendarPlusIcon color="white" size={20} /> Save the date
               </Link>
             </FadeAnimation>
@@ -237,7 +246,7 @@ export default function Home() {
         <section className="min-h-dvh p-1 text-center">
           <div className="backdrop-blur-xs border-2 shadow-md shadow-[rgba(0,0,0,.5)] border-white rounded-t-full rounded-b-full p-2 pb-30 min-h-dvh overflow-hidden">
             <Image
-              src='/photo-2.jpeg'
+              src='/malinda/1.jpeg'
               alt="event"
               width={0}
               height={0}
@@ -261,18 +270,18 @@ export default function Home() {
                 <FadeAnimation type="left" className="flex-1" delay={.5}>
                   <div className="flex-1 h-[1px] bg-amber-50" />
                     <div className="text-md uppercase text-right mt-1 mb-1">
-                      Selasa
+                      Senin
                     </div>
                   <div className="flex-1 h-[1px] bg-amber-50" />
                 </FadeAnimation>
                 <FadeAnimation>
-                  <div className="font-bold text-2xl leading-5">23</div>
-                  <div className="text-sm font-bold">2025</div>
+                  <div className="font-bold text-2xl leading-5">01</div>
+                  <div className="text-sm font-bold">2026</div>
                 </FadeAnimation>
                 <FadeAnimation type="right" className="flex-1" delay={.5}>
                   <div className="flex-1 h-[1px] bg-amber-50" />
                     <div className="text-md uppercase text-left mt-1 mb-1">
-                      September
+                      Juni
                     </div>
                   <div className="flex-1 h-[1px] bg-amber-50" />
                 </FadeAnimation>
@@ -281,23 +290,23 @@ export default function Home() {
               <div className={`flex ${prSerif.className} mt-10 items-center justify-evenly gap-3`}>
                 <FadeAnimation type="left" delay={.5} className="flex-1">
                   <div className="text-2xl mb-5">AKAD</div>
-                  <div className="text-sm">08.00 - 10.00</div>
+                  <div className="text-sm">09.00 WIB</div>
                 </FadeAnimation>
                 <FadeAnimation type="up" className="w-[1.5px] h-20 bg-amber-50" >
                   <div/>
                 </FadeAnimation>
                 <FadeAnimation type="right" delay={.5} className="flex-1">
                   <div className="text-2xl mb-5">RESEPSI</div>
-                  <div className="text-sm">12.00 - Selesai</div>
+                  <div className="text-sm">13.00 WIB</div>
                 </FadeAnimation>
               </div>
 
               <FadeAnimation type="up">
                 <div className={`${prSerif.className} mt-10 flex flex-col gap-5`}>
                   <div>Lokasi</div>
-                  <div>Dsn Pukiran, Ngalian, Wadaslintang, Wonosoobo</div>
+                  <div>Dsn.Sumberagung RT 002/RW 011 Ds.Sumberagung Kec.Rejotangan Kab.Tulungagung</div>
                   <Link
-                    href='https://maps.app.goo.gl/h7X1Ukbkh9WZyvJ68'
+                    href='https://maps.app.goo.gl/uEUaCh4k24PNweSw6'
                     target="_blank"
                     className="cursor-pointer border pt-1 pl-5 pr-5 pb-1 text-md self-center shadow-sm shadow-[rgba(0,0,0,.5)] flex gap-2 items-center">
                     <MapPinIcon color="white" size={20} /> Google Maps
@@ -312,12 +321,12 @@ export default function Home() {
         <section className="mt-10">
           <FadeAnimation type="up">
             <Image
-              src='/photo-6.jpeg'
+              src='/malinda/11.jpeg'
               alt="prewed"
               width={0}
               height={0}
               sizes="100vw"
-              className="w-full h-[300px] object-cover mb-10"
+              className="w-full h-[300px] object-cover mb-10 [object-position:center_80%]"
             />
           </FadeAnimation>
           <div className={`${prSerif.className} text-center relative mb-5`}>
@@ -328,7 +337,7 @@ export default function Home() {
           <div className="grid grid-cols-3 gap-1 justify-center">
             <FadeAnimation type="up">
               <Image
-                src='/photo-1.jpeg'
+              src='/malinda/1.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
@@ -338,7 +347,7 @@ export default function Home() {
             </FadeAnimation>
             <FadeAnimation type="up">
               <Image
-                src='/17.jpeg'
+              src='/malinda/2.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
@@ -348,7 +357,7 @@ export default function Home() {
             </FadeAnimation>
             <FadeAnimation type="up">
               <Image
-                src='/photo-4.jpeg'
+              src='/malinda/4.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
@@ -360,7 +369,7 @@ export default function Home() {
           <div className="grid grid-cols-4 gap-1 justify-center mt-8">
             <FadeAnimation type="up" className="col-span-2">
               <Image
-                src='/15.jpeg'
+                src='/malinda/3.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
@@ -370,7 +379,7 @@ export default function Home() {
             </FadeAnimation>
             <FadeAnimation type="up" className="col-span-2">
               <Image
-                src='/photo-13.jpeg'
+                src='/malinda/5.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
@@ -380,7 +389,7 @@ export default function Home() {
             </FadeAnimation>
             <FadeAnimation type="up" className="col-span-2">
               <Image
-                src='/photo-14.jpeg'
+                src='/malinda/6.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
@@ -390,7 +399,7 @@ export default function Home() {
             </FadeAnimation>
             <FadeAnimation type="up" className="col-span-2">
               <Image
-                src='/photo-3.jpeg'
+                src='/malinda/7.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
@@ -400,7 +409,7 @@ export default function Home() {
             </FadeAnimation>
             <FadeAnimation type="up" className="col-span-1">
               <Image
-                src='/18.jpeg'
+                src='/malinda/8.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
@@ -410,17 +419,17 @@ export default function Home() {
               </FadeAnimation>
             <FadeAnimation type="up" className="w-full h-[200px] overflow-hidden col-span-3">
               <Image
-                src='/16.jpeg'
+                src='/malinda/9.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
                 sizes="100vw"
-                className="w-full h-[200px] object-cover contrast-130 scale-120 rotate-[-1.7deg]"
+                className="w-full h-[200px] object-cover"
               />
             </FadeAnimation>
             <FadeAnimation type="up" className="row-span-2 col-span-2">
               <Image
-                src='/photo-10.jpeg'
+                src='/malinda/10.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
@@ -430,7 +439,7 @@ export default function Home() {
             </FadeAnimation>
             <FadeAnimation type="up" className="col-span-2">
               <Image
-                src='/photo-8.jpeg'
+                src='/malinda/1.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
@@ -440,7 +449,7 @@ export default function Home() {
             </FadeAnimation>
             <FadeAnimation type="up" className="col-span-2">
               <Image
-                src='/photo-9.jpeg'
+                src='/malinda/1.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
@@ -450,7 +459,7 @@ export default function Home() {
             </FadeAnimation>
             <FadeAnimation type="up" className="col-span-4">
               <Image
-                src='/photo-12.jpeg'
+                src='/malinda/1.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
@@ -491,29 +500,12 @@ export default function Home() {
                   height={80}
                 />
               </div>
-              <div className="text-left px-3 py-3">
-                <div>Ingka Fahira</div>
+              <div className="text-left pl-2 py-3">
+                <div>Malinda Ni&apos;matun Abaddiyah</div>
                 <button
-                  onClick={() => handleCopy('8545722492')}
+                  onClick={() => handleCopy('3230697328')}
                   className="cursor-pointer flex items-center gap-2 mt-2">
-                  <CopyIcon /> 8545722492
-                </button>
-              </div>
-            </div>
-            <div className="flex border backdrop-blur-xs mt-3 rounded overflow-hidden">
-              <Image
-                src='/seabank.png'
-                alt="seabank"
-                width={80}
-                height={80}
-                className="bg-white"
-              />
-              <div className="backdrop-blur-xs text-left px-3 py-3">
-                <div>Tri Fajar Pangestu</div>
-                <button
-                  onClick={() => handleCopy('901909801341')}
-                  className="cursor-pointer flex items-center gap-2 mt-2">
-                  <CopyIcon /> 901909801341
+                  <CopyIcon /> 3230697328
                 </button>
               </div>
             </div>
@@ -526,12 +518,12 @@ export default function Home() {
                   height={80}
                 />
               </div>
-              <div className="backdrop-blur-xs text-left px-3 py-3">
-                <div>Tri Fajar Pangestu</div>
+              <div className="backdrop-blur-xs text-left pl-2 py-3">
+                <div>Malinda Ni&apos;matun Abaddiyah</div>
                 <button
-                  onClick={() => handleCopy('089526651616')}
+                  onClick={() => handleCopy('085755157850')}
                   className="cursor-pointer flex items-center gap-2 mt-2">
-                  <CopyIcon /> 089526651616
+                  <CopyIcon /> 085755157850
                 </button>
               </div>
             </div>
@@ -543,7 +535,7 @@ export default function Home() {
             See You On Our Special Day
           </div>
           <div className={`${cormorant.className} text-4xl mb-2 mt-0`}>
-            Fajar <span className={`${mld.className} text-6xl`}>&</span> Ingka
+            Abi <span className={`${mld.className} text-6xl`}>&</span> Malinda
           </div>
           <div className={`${prSerif.className} text-md`}>
             Thankyou
