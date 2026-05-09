@@ -47,6 +47,11 @@ export default function Home() {
     handlePlayPause()
     videoRef.current?.play();
 
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant', // This removes the smooth sliding effect
+    });
+
     const el = document.documentElement;
 
     if (el.requestFullscreen) {
@@ -68,11 +73,56 @@ export default function Home() {
   const handleCopy = async (text: string) => {
     await navigator.clipboard.writeText(text);
   }
+  
+  const saveToCalendar = () => {
+    const title = "The Wedding of Abi & Malinda"
+
+    const description = `
+  Akad: 01 Juni 2026 09:00 WIB
+  Resepsi: 01 Juni 2026 13:00 WIB
+  Lokasi: Dsn.Sumberagung RT 002/RW 011 Ds.Sumberagung Kec.Rejotangan Kab.Tulungagung
+  Maps: https://maps.app.goo.gl/uEUaCh4k24PNweSw6
+  `.trim()
+
+    const location = "Dsn.Sumberagung RT 002/RW 011 Ds.Sumberagung Kec.Rejotangan Kab.Tulungagung"
+
+    // 01 Juni 2026
+    // 09:00 WIB = 02:00 UTC
+    // 15:00 WIB = 08:00 UTC
+    const startDate = "20260601T020000Z"
+    const endDate = "20260601T080000Z"
+
+    const icsContent = `
+  BEGIN:VCALENDAR
+  VERSION:2.0
+  CALSCALE:GREGORIAN
+  BEGIN:VEVENT
+  SUMMARY:${title}
+  DESCRIPTION:${description.replace(/\n/g, "\\n")}
+  LOCATION:${location}
+  DTSTART:${startDate}
+  DTEND:${endDate}
+  END:VEVENT
+  END:VCALENDAR
+  `.trim()
+
+    const blob = new Blob([icsContent], {
+      type: "text/calendar;charset=utf-8"
+    })
+
+    const link = document.createElement("a")
+    link.href = URL.createObjectURL(blob)
+    link.download = "the-wedding-of-abi-malinda.ics"
+
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
   return (
-    <div className="min-h-dvh text-white md:max-w-[500px]">
+    <div className="min-h-dvh text-white md:max-w-[500px] md:mx-auto">
       <LoadingOverlay />
       {/* Background video fixed */}
-      <div className="fixed top-0 left-0 w-full h-dvh -z-10">
+      <div className="fixed top-0 left-0 right-0 w-full md:max-w-[500px] md:mx-auto h-dvh -z-10">
         <video
           ref={videoRef}
           loop
@@ -80,7 +130,7 @@ export default function Home() {
           playsInline
           className="w-full h-dvh object-cover brightness-75"
         >
-          <source src="/malinda/video.mp4" type="video/mp4" />
+          <source src="/malinda/video-bg.mp4" type="video/mp4" />
         </video>
 
         <audio
@@ -97,7 +147,7 @@ export default function Home() {
             initial={{ opacity: 1 }}
             exit={{ y: "-100%" }}
             transition={{ duration: 2.5, ease: "easeInOut" }}
-            className="fixed inset-0 bg-black z-100 h-dvh"
+            className="fixed inset-0 bg-black z-100 h-dvh md:max-w-[500px] md:mx-auto"
             style={{ backgroundImage: "url('/malinda/opening.jpeg')", backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }}
           >
             <div className="flex flex-col justify-center items-center gap-2 h-full bg-black/30">
@@ -105,7 +155,7 @@ export default function Home() {
               <div className={`${cormorant.className} mb-2 text-4xl`}>
                 Abi <span className={`${mld.className} text-6xl`}>&</span> Malinda
               </div>
-              <div className={`${prSerif.className} mb-100`}>23 September 2025</div>
+              <div className={`${prSerif.className} mb-90`}>01 Juni 2026</div>
               <div className={`${prSerif.className}`}>Dear ,</div>
               <Suspense>
                 <Guest />
@@ -160,7 +210,7 @@ export default function Home() {
               width={0}
               height={0}
               sizes="100vw"
-              className="w-full h-[600px] object-cover"
+              className="w-full h-[600px] object-cover bg-gray-50/50"
             />
             <div className="absolute mt-[-150px] ml-[20px] p-3 bg-black/30">
               <FadeAnimation type="right" className={`${cormorant.className} mb-2 font-bold text-2xl`}>Malinda Ni&apos;matun Abaddiyah</FadeAnimation>
@@ -185,7 +235,7 @@ export default function Home() {
               width={0}
               height={0}
               sizes="100vw"
-              className="w-full h-[600px] object-cover"
+              className="w-full h-[600px] object-cover bg-gray-50/50"
             />
             <div className="absolute mt-[-150px] ml-[20px] p-3 bg-black/30 ">
               <FadeAnimation type="right" className={`${cormorant.className} mb-2 font-bold text-2xl`}>Abi Nur Rahmat</FadeAnimation>
@@ -251,7 +301,7 @@ export default function Home() {
               width={0}
               height={0}
               sizes="100vw"
-              className="rounded-t-full w-full h-auto mb-10 contrast-110"
+              className="rounded-t-full  max-w-[500px] w-full aspect-9/16 h-auto object-cover mb-10 bg-gray-50/50"
             />
 
             <div className='relative mb-2 mt-0'>
@@ -326,7 +376,7 @@ export default function Home() {
               width={0}
               height={0}
               sizes="100vw"
-              className="w-full h-[300px] object-cover mb-10 [object-position:center_80%]"
+              className="w-full h-[300px] object-cover mb-10 [object-position:center_70%] bg-gray-50/50"
             />
           </FadeAnimation>
           <div className={`${prSerif.className} text-center relative mb-5`}>
@@ -337,44 +387,44 @@ export default function Home() {
           <div className="grid grid-cols-3 gap-1 justify-center">
             <FadeAnimation type="up">
               <Image
-              src='/malinda/1.jpeg'
-                alt="prewed"
-                width={0}
-                height={0}
-                sizes="100vw"
-                className="w-full h-[120px] object-cover"
-              />
-            </FadeAnimation>
-            <FadeAnimation type="up">
-              <Image
               src='/malinda/2.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
                 sizes="100vw"
-                className="w-full h-[120px] object-cover"
+                className="w-full h-[120px] object-cover bg-gray-50/50"
               />
             </FadeAnimation>
             <FadeAnimation type="up">
               <Image
-              src='/malinda/4.jpeg'
+              src='/malinda/14.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
                 sizes="100vw"
-                className="w-full h-[120px] object-cover"
+                className="w-full h-[120px] object-cover bg-gray-50/50"
+              />
+            </FadeAnimation>
+            <FadeAnimation type="up">
+              <Image
+              src='/malinda/3.jpeg'
+                alt="prewed"
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-full h-[120px] object-cover bg-gray-50/50"
               />
             </FadeAnimation>
           </div>
           <div className="grid grid-cols-4 gap-1 justify-center mt-8">
             <FadeAnimation type="up" className="col-span-2">
               <Image
-                src='/malinda/3.jpeg'
+                src='/malinda/15.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
                 sizes="100vw"
-                className="w-full h-auto object-cover contrast-130 brightness-80"
+                className="w-full h-auto object-cover contrast-130 brightness-80 bg-gray-50/50" 
               />
             </FadeAnimation>
             <FadeAnimation type="up" className="col-span-2">
@@ -384,7 +434,7 @@ export default function Home() {
                 width={0}
                 height={0}
                 sizes="100vw"
-                className="w-full h-auto object-cover"
+                className="w-full h-auto object-cover bg-gray-50/50"
               />
             </FadeAnimation>
             <FadeAnimation type="up" className="col-span-2">
@@ -394,77 +444,77 @@ export default function Home() {
                 width={0}
                 height={0}
                 sizes="100vw"
-                className="w-full h-auto object-cover"
+                className="w-full h-auto object-cover bg-gray-50/50"
               />
             </FadeAnimation>
             <FadeAnimation type="up" className="col-span-2">
               <Image
-                src='/malinda/7.jpeg'
+                src='/malinda/17.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
                 sizes="100vw"
-                className="w-full h-auto object-cover"
+                className="w-full h-auto object-cover bg-gray-50/50"
               />
             </FadeAnimation>
             <FadeAnimation type="up" className="col-span-1">
               <Image
-                src='/malinda/8.jpeg'
+                src='/malinda/13.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
                 sizes="100vw"
-                className="w-full h-[200px] object-cover"
+                className="w-full h-[200px] object-cover bg-gray-50/50"
               />
               </FadeAnimation>
             <FadeAnimation type="up" className="w-full h-[200px] overflow-hidden col-span-3">
               <Image
-                src='/malinda/9.jpeg'
+                src='/malinda/18.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
                 sizes="100vw"
-                className="w-full h-[200px] object-cover"
+                className="w-full h-[200px] object-cover bg-gray-50/50"
               />
             </FadeAnimation>
             <FadeAnimation type="up" className="row-span-2 col-span-2">
               <Image
-                src='/malinda/10.jpeg'
+                src='/malinda/12.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
                 sizes="100vw"
-                className="w-full h-[405px] object-cover"
+                className="w-full h-[405px] object-cover bg-gray-50/50"
               />
             </FadeAnimation>
             <FadeAnimation type="up" className="col-span-2">
               <Image
-                src='/malinda/1.jpeg'
+                src='/malinda/21.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
                 sizes="100vw"
-                className="w-full h-[200px] object-cover grayscale-100"
+                className="w-full h-[200px] object-cover bg-gray-50/50"
               />
             </FadeAnimation>
             <FadeAnimation type="up" className="col-span-2">
               <Image
-                src='/malinda/1.jpeg'
+                src='/malinda/20.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
                 sizes="100vw"
-                className="w-full h-[200px] object-cover"
+                className="w-full h-[200px] object-cover bg-gray-50/50"
               />
             </FadeAnimation>
             <FadeAnimation type="up" className="col-span-4">
               <Image
-                src='/malinda/1.jpeg'
+                src='/malinda/19.jpeg'
                 alt="prewed"
                 width={0}
                 height={0}
                 sizes="100vw"
-                className="w-full h-[300px] object-cover [object-position:center_50%]"
+                className="w-full h-[300px] object-cover [object-position:center_30%] bg-gray-50/50 "
               />
             </FadeAnimation>
           </div>
@@ -544,8 +594,8 @@ export default function Home() {
             </div>
           </div>
         </section>
-
       </div>
+        <div className="text-sm text-center text-white">made with ❤ by fajarpng</div>
 
       <div className="fixed bottom-0 right-0 m-4 z-50 text-4xl opacity-80" onClick={handlePlayPause}>
         {playing ? <PauseCircleIcon /> : <PlayCircleIcon />}

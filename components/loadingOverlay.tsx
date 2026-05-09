@@ -26,7 +26,7 @@ export default function LoadingOverlay() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className={`${mld.className} text-8xl`}>IF</div>
+          <div className={`${mld.className} text-8xl`}>AM</div>
           <div className="w-[170px] h-2 bg-black/50 rounded overflow-hidden">
             <motion.div
               className="h-full bg-white"

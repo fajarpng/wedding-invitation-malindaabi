@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   publisher: "fajarpng",
   openGraph: {
     images: {
-      url: "https://wedding-invitation-fajarandingka.vercel.app/malinda/3.jpeg", // replace with your wedding banner/cover image
+      url: "https://wedding-malinda-abi.vercel.app/malinda/3.jpeg", // replace with your wedding banner/cover image
       width: 1200,
       height: 630,
       alt: "The Wedding of Malinda & Abi",
