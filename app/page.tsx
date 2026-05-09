@@ -74,50 +74,6 @@ export default function Home() {
     await navigator.clipboard.writeText(text);
   }
   
-  const saveToCalendar = () => {
-    const title = "The Wedding of Abi & Malinda"
-
-    const description = `
-  Akad: 01 Juni 2026 09:00 WIB
-  Resepsi: 01 Juni 2026 13:00 WIB
-  Lokasi: Dsn.Sumberagung RT 002/RW 011 Ds.Sumberagung Kec.Rejotangan Kab.Tulungagung
-  Maps: https://maps.app.goo.gl/uEUaCh4k24PNweSw6
-  `.trim()
-
-    const location = "Dsn.Sumberagung RT 002/RW 011 Ds.Sumberagung Kec.Rejotangan Kab.Tulungagung"
-
-    // 01 Juni 2026
-    // 09:00 WIB = 02:00 UTC
-    // 15:00 WIB = 08:00 UTC
-    const startDate = "20260601T020000Z"
-    const endDate = "20260601T080000Z"
-
-    const icsContent = `
-  BEGIN:VCALENDAR
-  VERSION:2.0
-  CALSCALE:GREGORIAN
-  BEGIN:VEVENT
-  SUMMARY:${title}
-  DESCRIPTION:${description.replace(/\n/g, "\\n")}
-  LOCATION:${location}
-  DTSTART:${startDate}
-  DTEND:${endDate}
-  END:VEVENT
-  END:VCALENDAR
-  `.trim()
-
-    const blob = new Blob([icsContent], {
-      type: "text/calendar;charset=utf-8"
-    })
-
-    const link = document.createElement("a")
-    link.href = URL.createObjectURL(blob)
-    link.download = "the-wedding-of-abi-malinda.ics"
-
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
   return (
     <div className="min-h-dvh text-white md:max-w-[500px] md:mx-auto">
       <LoadingOverlay />
