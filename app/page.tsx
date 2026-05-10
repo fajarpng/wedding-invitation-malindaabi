@@ -109,7 +109,7 @@ export default function Home() {
             <div className="flex flex-col justify-center items-center gap-2 h-full bg-black/30">
               <div className={`${prSerif.className} mb-2`}>The Wedding of</div>
               <div className={`${cormorant.className} mb-2 text-4xl`}>
-                Abi <span className={`${mld.className} text-6xl`}>&</span> Malinda
+                Malinda <span className={`${mld.className} text-6xl`}>&</span> Abi
               </div>
               <div className={`${prSerif.className} mb-90`}>01 Juni 2026</div>
               <div className={`${prSerif.className}`}>Dear ,</div>
@@ -197,7 +197,7 @@ export default function Home() {
               <FadeAnimation type="right" className={`${cormorant.className} mb-2 font-bold text-2xl`}>Abi Nur Rahmat</FadeAnimation>
               <FadeAnimation type="up">
                 <div className={`${prSerif.className} opacity-90 mb-2 text-sm`}>
-                  Bapak Suyono Anung R. & Ibu Sriatun<br/>
+                  Bapak Suyono & Ibu Sriatun<br/>
                   Ds.Sumberagung Kec.Rejotangan Kab.Tulungagung
                 </div>
                 <Link
