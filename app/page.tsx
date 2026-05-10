@@ -541,7 +541,7 @@ export default function Home() {
             See You On Our Special Day
           </div>
           <div className={`${cormorant.className} text-4xl mb-2 mt-0`}>
-            Abi <span className={`${mld.className} text-6xl`}>&</span> Malinda
+            Malinda <span className={`${mld.className} text-6xl`}>&</span>Abi
           </div>
           <div className={`${prSerif.className} text-md`}>
             Thankyou
